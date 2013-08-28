@@ -1,0 +1,67 @@
+{
+    "optimize": {
+        "optimize": "none",
+        "appDir": ".",
+        "baseUrl": "js",
+        "dir":     "../htdocs-build",
+        "modules": [
+            {
+                "name": "wqsite"
+            }
+        ],
+        "paths": {
+            "../config": "empty:"
+        }
+    },
+    "setversion": {
+       "filename": "../version.txt",
+       "jsout": "js/version.js"
+    },
+    "collectjson": [
+        {
+            "paths": ["../templates"],
+            "type": "html",
+            "output": "js/templates.js",
+            "json": {
+                "indent": 4
+            },
+            "jsonp": "define"
+        },
+        {
+            "paths": ["../wq/docs"],
+            "type": "md",
+            "output": "js/docs.js",
+            "json": {
+                "indent": 4
+            },
+            "jsonp": "define"
+        },
+        {
+            "paths": ["../conf"],
+            "type": "yaml",
+            "extension": "yml",
+            "output": "js/conf.js",
+            "json": {
+                "indent": 4
+            },
+            "jsonp": "define"
+        }
+    ],
+    "scss": {
+        "indir": "scss",
+        "outdir": "css"
+    },
+    "appcache": {
+        "name": "wqsite.appcache",
+        "css":  "css/wqsite.css",
+        "cache": [
+            "js/wq/lib/require.js"
+        ],
+        "network": [
+            "*",
+            "http://*",
+            "https://*"
+        ],
+        "fallback": [""]
+    }
+}

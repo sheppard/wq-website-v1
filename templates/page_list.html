@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>wq</title>
+    {{>head}}
+  </head>
+  <body>
+    <div data-role="page" class="ui-page" data-url="/" id="index-page">
+      <div data-role="header">
+        <h3>wq</h3>
+      </div>
+      {{>menu}}
+      <div data-role="content">
+        <img src="/images/512/wq.png" alt="wq" class="logo">
+        <p>
+          <strong>wq</strong> is a modular framework for building custom
+          offline-capable desktop and mobile web apps  for
+          <strong>volunteered geographic information</strong>,
+          <strong>citizen science</strong>,
+          and <strong>crowdsourcing</strong>.
+        </p>
+
+        <p>
+          wq is <a href="/license">open source</a> and extends a number of existing 
+          open source web frameworks, including 
+          <strong>Django</strong>, 
+          <strong>jQuery Mobile</strong>,
+          and <strong>RequireJS</strong>.
+        </p>
+
+        <ul data-role="listview" data-theme="c" data-divider-theme="a"
+            data-inset="true" style="clear:both">
+          <li data-role="list-divider">Submodules</li>
+          {{#list}}
+          {{#submodule}}
+          <li><a href="/{{id}}">
+             <img src="/images/80/{{id}}.png">
+             <p>{{{description}}}</p>
+          </a></li>
+          {{/submodule}}
+          {{/list}}
+        </ul>
+{{>footer}}

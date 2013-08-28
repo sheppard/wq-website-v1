@@ -1,0 +1,20 @@
+-
+  id: "about"
+  title: "About"
+  short_title: "About"
+-
+  id: "license"
+  title: "License"
+  short_title: "License"
+-
+  id: "docs/"
+  title: "Documentation"
+  short_title: "Docs"
+-
+  id: "research/"
+  title: "Research"
+  short_title: "Pubs"
+-
+  id: "community"
+  title: "Community"
+  short_title: "Cmty"

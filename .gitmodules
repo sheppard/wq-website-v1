@@ -1,0 +1,6 @@
+[submodule "wq"]
+	path = wq
+	url = https://github.com/wq/wq.git
+[submodule "compass"]
+	path = compass
+	url = https://github.com/chriseppstein/compass.git

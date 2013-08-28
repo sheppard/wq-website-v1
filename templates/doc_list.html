@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Documentation</title>
+    {{>head}}
+  </head>
+  <body>
+    <div data-role="page" class="ui-page">
+      <div data-role="header">
+        {{>home}}
+        <h3>Documentation</h3>
+      </div>
+      {{>menu}}
+      <div data-role="content">
+        <ul data-role="listview" data-inset="true">
+        {{#list}}
+          {{#section}}
+          <li data-role="list-divider" data-theme="a">{{label}}</li>
+          {{/section}}
+          {{^section}}
+          <li><a href="/docs/{{id}}">{{label}}</a></li>
+          {{/section}}
+        {{/list}}
+        </ul>
+        <div class="ui-content"></div>
+      </div>
+{{>footer}}

@@ -1,0 +1,12 @@
+*.pyc
+.*.swp
+local_settings.py
+htdocs
+media
+responsive.css
+themes.css
+docs.js
+conf.js
+templates.js
+version.js
+wqsite.appcache

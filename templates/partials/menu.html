@@ -1,0 +1,12 @@
+<div data-role="header" data-theme="b">
+  <div data-role="navbar">
+    <ul>
+      {{#menu}}
+      <li><a href="/{{id}}"{{#current}} class="ui-active ui-state-persist"{{/current}}>
+        <span class="long">{{title}}</span>
+        <span class="short">{{short_title}}</span>
+      </a></li>    
+      {{/menu}}
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Page Not Found</title>
+    {{>head}}
+  </head>
+  <body>
+    <div data-role="page" class="ui-page">
+      <div data-role="header">
+        {{>home}}
+        <h3>Page Not Found</h3>
+      </div>
+      {{>menu}}
+      <div data-role="content">
+        The page {{url}} was not found.
+      </div>
+{{>footer}}

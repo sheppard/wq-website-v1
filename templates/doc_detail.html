@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{title}}</title>
+    {{>head}}
+  </head>
+  <body>
+    <div data-role="page" class="ui-page">
+      <div data-role="header">
+        {{>home}}
+        <h3>{{title}}</h3>
+      </div>
+      {{>menu}}
+      <div data-role="content">
+        <a href="/docs/" data-role="button" data-icon="back"
+          data-inline="true" data-mini="true">Back</a>
+        <p>{{type_label}}</p>
+        {{{html}}}
+      </div>
+{{>footer}}

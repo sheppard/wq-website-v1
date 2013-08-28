@@ -1,0 +1,50 @@
+.short {
+    display: none !important;
+}
+pre {
+    border: 1px solid #ccc;
+    background-color: #f6fff6;
+    padding: 0.5em;
+}
+code {
+    color: #101;
+}
+.logo {
+    width: 25%;
+    float: left;
+    margin-right: 1em;
+}
+.abstract {
+    border: 1px solid #98b;
+    background-color: #f5f0ff;
+    padding: 1em;
+    margin: 0;
+    font-size: 0.9em;
+}
+.copyright {
+    position: absolute;
+    left: 0.5em;
+    right: 0.5em;
+    bottom: 0.5em;
+    border-top: 1px solid #98b;
+    color: #768;
+    text-align: center;
+    font-size: 0.8em;
+    padding-top: 0.5em;
+}
+.ui-page {
+    padding-bottom: 2em;
+}
+.github {
+    float:right;
+    text-align: center;
+    border: 1px solid #ccc;
+    background-color: white;
+    padding: 0.5em;
+}
+.github a {
+    text-decoration: none !important;
+}
+.github iframe {
+    display: inline-block;
+}
