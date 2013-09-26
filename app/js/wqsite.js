@@ -1,8 +1,9 @@
-require(["wq/app", "wq/store", "config", "templates", "doc"],
-function(app, ds, config, templates, doc) {
+require(["wq/app", "wq/store", "wq/markdown", "config", "templates", "doc"],
+function(app, ds, md, config, templates, doc) {
 
 // Initialize wq.app
 app.init(config, templates);
+md.init();
 doc.init();
 
 // Prefetch important data

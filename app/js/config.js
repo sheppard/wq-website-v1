@@ -4,8 +4,7 @@ function(config, dbconfig, render) {
 // Template renderer defaults
 config.defaults = {
     'menu': config.menu,
-    'current': render.current,
-    'html': render.html
+    'current': render.current
 }
 
 // jQM transitions
