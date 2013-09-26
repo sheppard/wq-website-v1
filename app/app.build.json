@@ -1,9 +1,10 @@
 {
     "optimize": {
-        "optimize": "none",
         "appDir": ".",
         "baseUrl": "js",
         "dir":     "../htdocs-build",
+        "skipDirOptimize": true,
+        "preserveLicenseComments": false,
         "modules": [
             {
                 "name": "wqsite"

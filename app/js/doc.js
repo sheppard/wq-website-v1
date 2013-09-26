@@ -30,7 +30,11 @@ config.docs.forEach(function(type) {
         items.push(_docs[id]);
     };
     // Sort alphabetically
-    items.sort(function(a, b){ return a.id > b.id });
+    items.sort(function(a, b){ 
+        if (a.id < b.id) return -1;
+        if (a.id > b.id) return 1;
+        return 0;
+    });
     _list = _list.concat(items);
 });
 
