@@ -1,6 +1,7 @@
 from wq.db.rest import views
 from wq.app.util import collect
 from rest_framework.response import Response
+from django.http import Http404
 from django.conf import settings
 import markdown, re
 
@@ -58,4 +59,6 @@ class DocListView(views.SimpleView):
 class DocDetailView(views.SimpleView):
     template_name = "doc_detail.html"
     def get(self, request, doc=None):
+        if doc not in DOCS:
+            raise Http404
         return Response(DOCS[doc])
