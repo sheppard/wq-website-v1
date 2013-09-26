@@ -48,3 +48,6 @@ code {
 .github iframe {
     display: inline-block;
 }
+.ui-header.ui-bar-d .ui-link {
+    text-decoration: none !important;
+}

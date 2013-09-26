@@ -19,6 +19,7 @@ for section in settings.CONF['docs']:
     # Section header
     DOC_LIST.append({
         'id': section['id'],
+        'type_id': section['id'],
         'label': section['label'],
         'section': True
     })
@@ -44,9 +45,13 @@ DOCS = { doc['id']: doc for doc in DOC_LIST }
 # Mimic wq.db.rest.views.ListOrCreateModelView
 class DocListView(views.SimpleView):
     template_name = "doc_list.html"
-    def get(self, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
+        data = DOC_LIST
+        section = request.GET.get('section', None)
+        if section:
+            data = [doc for doc in data if doc['type_id'] == section]
         return Response({
-            'list': DOC_LIST
+            'list': data
         })
 
 # Mimic wq.db.rest.views.InstanceModelView

@@ -11,6 +11,7 @@ config.docs.forEach(function(type) {
     // Section header
     _list.push({
         'id': type.id,
+        'type_id': type.id,
         'label': type.label,
         'section': true
     });
@@ -35,7 +36,15 @@ config.docs.forEach(function(type) {
 
 // Mimic wq/app.js _renderList
 function _renderList(match, ui, params) {
-    pages.go('docs/', 'doc_list', {'list': _list}, ui);
+    var list = _list;
+    var url = 'docs/';
+    if (params && params.section) {
+        list = list.filter(function(d){
+            return d.type_id == params.section;
+        });
+        url += '?section=' + params.section;
+    }
+    pages.go(url, 'doc_list', {'list': list}, ui);
 }
 
 // Mimic wq/app.js _renderItem
