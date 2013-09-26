@@ -1,15 +1,27 @@
--
+- 
   id: overview
-  label: Overview
+  label: "Overview"
 - 
   id: philosophy
-  label: Philosophy
+  label: "Philosophy"
 - 
   id: app
-  label: wq.app
+  label: "wq.app: modules"
 - 
-  id: db
-  label: wq.db
+  id: build
+  label: "wq.app: build tool"
+- 
+  id: rest
+  label: "wq.db REST services"
+- 
+  id: patterns
+  label: "wq.db Design Patterns"
+- 
+  id: vera
+  label: "wq.db: vera"
+- 
+  id: files
+  label: "wq.db: files"
 - 
   id: io
-  label: wq.io
+  label: "wq.io"
