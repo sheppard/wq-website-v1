@@ -7,8 +7,8 @@ from wq.db.rest import app
 app.autodiscover()
 app.router.add_page('index', {'url': ''})
 
-from wqsite.db.content.views import DocListView, DocDetailView
-from wqsite.db.content.models import Page
+from content.views import DocListView, DocDetailView
+from content.models import Page
 page_list, page_detail = app.router.get_views_for_model(Page)
 
 urlpatterns = patterns('',

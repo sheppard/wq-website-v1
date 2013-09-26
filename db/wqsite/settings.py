@@ -1,4 +1,4 @@
-# Django settings for wqsite.db project.
+# Django settings for wqsite project.
 
 # Based on default project template settings:
 # https://github.com/django/django/blob/master/django/conf/project_template/project_name/settings.py
@@ -83,10 +83,10 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'wqsite.db.urls'
+ROOT_URLCONF = 'wqsite.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'wqsite.db.wsgi.application'
+WSGI_APPLICATION = 'wqsite.wsgi.application'
 
 # TEMPLATE_DIRS is defined in local_settings.py
 
@@ -111,7 +111,7 @@ INSTALLED_APPS = (
 
     'wq.db.contrib.files',
 
-    'wqsite.db.content',
+    'content',
 )
 
 # wq.db Recommended settings for Django, rest_framework, and social_auth
@@ -123,7 +123,7 @@ from wq.db.rest.settings import (
     SOCIAL_AUTH_PIPELINE,
 )
 TEMPLATE_CONTEXT_PROCESSORS += (
-    "wqsite.db.content.context_processors.menu",
+    "content.context_processors.menu",
 )
 
 # Recommended settings unique to wq.db
