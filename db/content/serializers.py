@@ -6,8 +6,13 @@ import markdown
 from django.conf import settings
 
 class PageSerializer(ModelSerializer):
-    html = SerializerMethodField('get_html')
     def get_html(self, obj):
         return markdown.markdown(obj.markdown, settings.MARKDOWN)
+
+    def get_default_fields(self, *args, **kwargs):
+        default_fields = super(PageSerializer, self).get_default_fields(*args, **kwargs)
+        if self.context['view'].depth > 0:
+            default_fields['html'] = SerializerMethodField('get_html')
+        return default_fields
 
 app.router.register_serializer(Page, PageSerializer)
