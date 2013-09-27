@@ -19,5 +19,8 @@
       </div>
       <div data-role="content">
         {{{html}}}
+        {{#is_authenticated}}
+        <a href="http://prose.io/#wq/wq/edit/master/docs/{{type_id}}/{{id}}.md" rel="external">Edit this Page</a>
+        {{/is_authenticated}}
       </div>
 {{>footer}}
