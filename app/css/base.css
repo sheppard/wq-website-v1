@@ -51,3 +51,13 @@ code {
 .ui-header.ui-bar-d .ui-link {
     text-decoration: none !important;
 }
+table {
+    border-spacing: 0;
+}
+th {
+    border-bottom: 2px solid #CDE;
+}
+td {
+    border-bottom: 1px solid #CDE;
+    padding: 10px;
+}

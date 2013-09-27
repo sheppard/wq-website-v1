@@ -56,6 +56,8 @@ function _renderItem(match, ui, params) {
     var id = match[1];
     if (_docs[id])
         pages.go('docs/' + id, 'doc_detail', _docs[id], ui);
+    else
+        pages.notFound('docs/' + id);
 }
 
 // Initialize URL routes

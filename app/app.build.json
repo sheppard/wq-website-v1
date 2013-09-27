@@ -1,5 +1,6 @@
 {
     "optimize": {
+        "optimize": "none",
         "appDir": ".",
         "baseUrl": "js",
         "dir":     "../htdocs-build",
@@ -11,7 +12,8 @@
             }
         ],
         "paths": {
-            "../config": "empty:"
+            "../config": "empty:",
+            "docs": "empty:"
         }
     },
     "setversion": {
