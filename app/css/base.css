@@ -61,3 +61,18 @@ td {
     border-bottom: 1px solid #CDE;
     padding: 10px;
 }
+
+a.github-src, a.github-file {
+  background: #cee;
+  color: #606;
+  border-radius: 0.5em;
+  border: 1px solid #abb;
+  padding: 0.2em;
+  text-decoration: none;
+  text-shadow: none;
+}
+a.github-file {
+  position: absolute;
+  top: 8em;
+  right: 1em;
+}

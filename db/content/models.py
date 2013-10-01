@@ -23,6 +23,9 @@ class Paper(models.IdentifiedRelatedModel):
 
     slug        = "research"
 
+    class Meta:
+        ordering = ["-date"]
+
 class PDF(File):
     type_name = "Paper"
     def get_directory(self):

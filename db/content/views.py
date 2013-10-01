@@ -12,6 +12,26 @@ def get_docs(type_id):
         'md'
     ).items()
 
+def parse(doc):
+    html = markdown.markdown(doc, settings.MARKDOWN)
+    html = re.sub(
+        r'<p><a (href="https:\/\/github.com\/[^"]+\/blob)', 
+        r'<p><a class="github-file" \1',
+        html,
+        count=1
+    )
+    html = re.sub(
+        r'a (href="https:\/\/github.com\/[^"]+\/blob)',
+        r'a class="github-src" \1',
+        html
+    )
+    html = re.sub(
+        r'(href="http[s]?:\/\/[^wq.io])',
+        r'rel="external" \1',
+        html
+    )
+    return html
+
 # Docs sorted by section, then title
 DOC_LIST = []
 
@@ -33,7 +53,7 @@ for section in settings.CONF['docs']:
             'type_id': section['id'],
             'type_label': section['label'],
             'label': re.match('(.+)', doc).group(0),
-            'html':  markdown.markdown(doc, settings.MARKDOWN)
+            'html':  parse(doc)
         })
 
     # Sort alphabetically
