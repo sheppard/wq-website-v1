@@ -15,8 +15,8 @@ def get_docs(type_id):
 def parse(doc):
     html = markdown.markdown(doc, settings.MARKDOWN)
     html = re.sub(
-        r'<p><a (href="https:\/\/github.com\/[^"]+\/blob)', 
-        r'<p><a class="github-file" \1',
+        r'(<\/h1>\s*<p><a) (href="https:\/\/github.com\/[^"]+\/blob)', 
+        r'\1 class="github-file" \2',
         html,
         count=1
     )
