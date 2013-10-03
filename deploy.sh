@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 
 # Build javascript with wq.app
 cd app;
