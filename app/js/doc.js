@@ -1,5 +1,5 @@
-define(["wq/pages", "docs", "config"],
-function(pages, docs, config) {
+define(["wq/lib/jquery.mobile", "wq/pages", "docs", "config"],
+function(jqm, pages, docs, config) {
 
 var _docs = {}; // Docs by id
 var _list = []; // Docs sorted by section, then title
@@ -20,12 +20,14 @@ config.docs.forEach(function(type) {
     for (var id in docs[type.id]) {
         var doc = docs[type.id][id];
         var label = doc.substring(0, doc.indexOf("\n"));
+        var interactive = doc.indexOf("data-interactive") > -1;
         _docs[id] = {
             'id': id,
             'type_id': type.id,
             'type_label': type.label,
             'label': label,
-            'markdown': doc
+            'markdown': doc,
+            'interactive': interactive
         };
         items.push(_docs[id]);
     };
@@ -60,10 +62,36 @@ function _renderItem(match, ui, params) {
         pages.notFound('docs/' + id);
 }
 
+// Custom scripting for doc pages
+function _showItem(match, ui, params, hash, evt, $page) {
+    _loadInteraction(match[1], $page);
+}
+
+function _loadInteraction(docid, $page) {
+    var info = _docs[docid];
+    if (!info || !info.interactive)
+        return;
+
+    // Automatically load and execute custom script for this doc
+    require(['docs/' + info.type_id + '/' + info.id + '-ui'], 
+        function(script) {
+            var $elems = $page.find('[data-interactive]');
+            script($elems);
+        }
+    );
+}
+
 // Initialize URL routes
 function init() {
     pages.register('docs/', _renderList);
     pages.register('docs/(.+)', _renderItem);
+    pages.addRoute('docs/(.+)','s', _showItem);
+
+    // Ensure interaction loads when doc is rendered on server via deep link
+    var $page = jqm.activePage;
+    if ($page && $page.data('docid')) {
+        _loadInteraction($page.data('docid'), $page);
+    }
 }
 
 return {
