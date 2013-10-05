@@ -13,25 +13,36 @@
       {{>menu}}
       <div data-role="content">
         <h3>{{full_title}}</h3>
-        <h4>
-          {{authors}}<br>
-          <a href="{{conference_url}}">{{conference}}</a><br>
-          {{date}}</h4>
-        </h4>
-        {{{description}}}
+        <div class="ui-grid-a">
+          <div class="ui-block-a">
+            <h4>
+              {{authors}}<br>
+              <a href="{{conference_url}}">{{conference}}</a><br>
+              {{date}}
+            </h4>
+          </div>
+          <div class="ui-block-b">
+            <ul data-role="listview" data-inset="true">
+            {{#relationships}}
+              <li><a href="/media/papers/{{item_label}}" rel="external">{{type_label}}</a></li>
+            {{/relationships}}
+            {{#identifiers}}
+            {{^is_primary}}
+              <li><a href="{{url}}" rel="external">{{authority_label}}</a></li>
+            {{/is_primary}}
+            {{/identifiers}}
+            </ul>
+          </div>
+        </div>
+        <p>
+          {{{description}}}
+        </p>
         <blockquote class="abstract">
           <h4>Abstract</h4>
           <p>{{abstract}}</p>
         </blockquote>
-        <ul data-role="listview" data-inset="true">
-        {{#relationships}}
-          <li><a href="/media/papers/{{item_label}}" rel="external">{{type_label}}</a></li>
-        {{/relationships}}
-        {{#identifiers}}
-        {{^is_primary}}
-          <li><a href="{{url}}" rel="external">{{authority_label}}</a></li>
-        {{/is_primary}}
-        {{/identifiers}}
-        </ul>
+        <p>
+        <img src="/media/images/{{id}}-large.png" alt="{{label}}">
+        </p>
      </div>
 {{>footer}}
