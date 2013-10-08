@@ -14,14 +14,14 @@
       <div data-role="content">
         <h3>{{full_title}}</h3>
         <div class="ui-grid-a">
-          <div class="ui-block-a">
+          <div class="ui-block-a" style="width:66%">
             <h4>
               {{authors}}<br>
               <a href="{{conference_url}}">{{conference}}</a><br>
               {{date}}
             </h4>
           </div>
-          <div class="ui-block-b">
+          <div class="ui-block-b" style="width:33%">
             <ul data-role="listview" data-inset="true">
             {{#relationships}}
               <li><a href="/media/papers/{{item_label}}" rel="external">{{type_label}}</a></li>
