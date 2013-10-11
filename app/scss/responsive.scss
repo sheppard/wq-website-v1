@@ -49,3 +49,14 @@
         }
     }
 }
+
+@media screen and (min-width: 35em) {
+    .ui-grid-a {
+        .ui-block-a {
+            width: 66% !important;
+        }
+        .ui-block-b {
+            width: 33% !important;
+        }
+    }
+}
