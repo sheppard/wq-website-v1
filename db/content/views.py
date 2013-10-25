@@ -1,16 +1,27 @@
 from wq.db.rest import views
 from wq.app.util import collect
 from rest_framework.response import Response
+from rest_framework import status
 from django.http import Http404
 from django.conf import settings
 import markdown, re
 
 # Load documentation files from directory
 def get_docs(type_id):
-    return collect.readfiles(
+    doc_files = collect.readfiles(
         '%s/%s' % (settings.DOCS_ROOT, type_id),
         'md'
-    ).items()
+    )
+    docs = []
+    for id, doc in doc_files.items():
+        # Googlebot doesn't like webpage URLs ending with .js
+        if id.endswith('.js'):
+            id = id.replace('.js', '-js')
+            is_jsdoc = True
+        else:
+            is_jsdoc = False
+        docs.append((id, doc, is_jsdoc))
+    return docs
 
 def parse(doc):
     html = markdown.markdown(doc, settings.MARKDOWN)
@@ -47,9 +58,10 @@ for section in settings.CONF['docs']:
 
     # Documentation pages for this section
     docs = []
-    for id, doc in get_docs(section['id']):
+    for id, doc, is_jsdoc in get_docs(section['id']):
         docs.append({
             'id': id,
+            'is_jsdoc': is_jsdoc,
             'type_id': section['id'],
             'type_label': section['label'],
             'label': re.match('(.+)', doc).group(0),
@@ -82,3 +94,12 @@ class DocDetailView(views.SimpleView):
         if doc not in DOCS:
             raise Http404
         return Response(DOCS[doc])
+
+# Redirect e.g. /docs/app.js to /docs/app-js
+class DocRedirectView(DocDetailView):
+    def get(self, request, doc=None):
+        doc = doc.replace(".js", "-js")
+        response = super(DocRedirectView, self).get(request, doc)
+        response['Location'] = "/docs/%s" % doc
+        response.status_code = status.HTTP_301_MOVED_PERMANENTLY
+        return response
