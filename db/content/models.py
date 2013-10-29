@@ -21,6 +21,33 @@ class Paper(models.IdentifiedRelatedModel):
     conference_url = models.URLField(null=True)
     date        = models.DateField(null=True)
 
+    conference_longname = models.CharField(max_length=255)
+    publisher = models.CharField(max_length=255)
+    
+    @property
+    def author_list(self):
+        return self.authors.split(', ')
+
+    @property
+    def citation_date(self):
+        return self.date.strftime('%Y/%m/%d')
+
+    @property
+    def doi(self):
+        ids = self.identifiers.filter(authority__name="DOI")
+        if ids:
+            return ids[0].name
+        else:
+            return None
+
+    @property
+    def acm_dl(self):
+        ids = self.identifiers.filter(authority__name="ACM Digital Library")
+        if ids:
+            return ids[0].url
+        else:
+            return None
+
     slug        = "research"
 
     class Meta:

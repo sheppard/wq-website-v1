@@ -3,6 +3,17 @@
   <head>
     <title>{{short_title}}</title>
     {{>head}}
+    <meta name="citation_title" content="{{full_title}}">
+    <meta name="citation_conference_title" content="{{conference_longname}}">
+    <meta name="citation_publisher" content="{{publisher}}">
+    <meta name="citation_publication_date" content="{{citation_date}}">
+    <meta name="citation_doi" content="{{doi}}">
+    {{#author_list}}
+    <meta name="citation_author" content="{{.}}">
+    {{/author_list}}
+    {{#relationships}}
+    <meta name="citation_pdf_url" content="http://wq.io/media/papers/{{item_label}}">
+    {{/relationships}}
   </head>
   <body>
     <div data-role="page" class="ui-page">
@@ -17,7 +28,7 @@
           <div class="ui-block-a">
             <h4>
               {{authors}}<br>
-              <a href="{{conference_url}}">{{conference}}</a><br>
+              <a title="{{conference_longname}}" href="{{conference_url}}">{{conference}}</a><br>
               {{date}}
             </h4>
           </div>
@@ -26,11 +37,9 @@
             {{#relationships}}
               <li><a href="/media/papers/{{item_label}}" rel="external">{{type_label}}</a></li>
             {{/relationships}}
-            {{#identifiers}}
-            {{^is_primary}}
-              <li><a href="{{url}}" rel="external">{{authority_label}}</a></li>
-            {{/is_primary}}
-            {{/identifiers}}
+            {{#acm_dl}}
+              <li><a href="{{acm_dl}}" rel="external">ACM Digital Library</a></li>
+            {{/acm_dl}}
             </ul>
           </div>
         </div>
