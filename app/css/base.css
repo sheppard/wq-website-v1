@@ -76,3 +76,6 @@ a.github-file {
   top: 8em;
   right: 1em;
 }
+h1, h2, pre {
+  clear: both;
+}
