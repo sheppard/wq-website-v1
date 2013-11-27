@@ -2,7 +2,7 @@
     "optimize": {
         "optimize": "none",
         "appDir": ".",
-        "baseUrl": "js",
+        "baseUrl": "js/lib",
         "dir":     "../htdocs-build",
         "skipDirOptimize": true,
         "preserveLicenseComments": false,
@@ -12,19 +12,20 @@
             }
         ],
         "paths": {
-            "../config": "empty:",
+            "wqsite": "../wqsite",
+            "db": "empty:",
             "docs": "empty:"
         }
     },
     "setversion": {
        "filename": "../version.txt",
-       "jsout": "js/version.js"
+       "jsout": "js/wqsite/version.js"
     },
     "collectjson": [
         {
             "paths": ["../templates"],
             "type": "html",
-            "output": "js/templates.js",
+            "output": "js/wqsite/templates.js",
             "json": {
                 "indent": 4
             },
@@ -33,7 +34,7 @@
         {
             "paths": ["../wq/docs"],
             "type": "md",
-            "output": "js/docs.js",
+            "output": "js/wqsite/docs.js",
             "json": {
                 "indent": 4
             },
@@ -43,7 +44,7 @@
             "paths": ["../conf"],
             "type": "yaml",
             "extension": "yml",
-            "output": "js/conf.js",
+            "output": "js/wqsite/conf.js",
             "json": {
                 "indent": 4
             },
@@ -58,7 +59,7 @@
         "name": "wqsite.appcache",
         "css":  "css/wqsite.css",
         "cache": [
-            "js/wq/lib/require.js"
+            "js/lib/require.js"
         ],
         "network": [
             "*",

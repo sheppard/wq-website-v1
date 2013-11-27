@@ -1,4 +1,4 @@
-define(["conf", "../config", "render"],
+define(["./conf", "db/config", "./render"],
 function(config, dbconfig, render) {
 
 // Template renderer defaults

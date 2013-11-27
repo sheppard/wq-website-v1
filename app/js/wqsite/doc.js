@@ -1,4 +1,4 @@
-define(["wq/lib/jquery.mobile", "wq/pages", "docs", "config"],
+define(["jquery.mobile", "wq/pages", "./docs", "./config"],
 function(jqm, pages, docs, config) {
 
 var _docs = {}; // Docs by id
