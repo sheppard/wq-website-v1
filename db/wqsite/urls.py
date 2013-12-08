@@ -5,16 +5,17 @@ admin.autodiscover()
 
 from wq.db.rest import app
 app.autodiscover()
-app.router.add_page('index', {'url': ''})
 
 from content.views import DocListView, DocDetailView, DocRedirectView
 from content.models import Page
-page_list, page_detail = app.router.get_views_for_model(Page)
+page_detail = app.router.get_viewset_for_model(Page).as_view(
+    {'get': 'retrieve'}
+)
 
 urlpatterns = patterns('',
     # Special handing for wq.* and docs/*.js pages since their slugs are 
     # technically invalid
-    url(r'^(?P<slug>wq\.\w+)', page_detail),
+    url(r'^(?P<primary_identifiers__slug>wq\.\w+)', page_detail),
     url(r'^docs/(?P<doc>\w+\.js)/?$', DocRedirectView.as_view()),
 
     # Documentation paths

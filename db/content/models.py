@@ -8,8 +8,6 @@ class Page(models.IdentifiedModel):
     submodule = models.BooleanField(default=False)
     updated = models.DateTimeField(auto_now=True)
 
-    slug = ""
-
 class Paper(models.IdentifiedRelatedModel):
     short_title = models.CharField(max_length=40)
     full_title  = models.CharField(max_length=255)
@@ -47,8 +45,6 @@ class Paper(models.IdentifiedRelatedModel):
             return ids[0].url
         else:
             return None
-
-    slug        = "research"
 
     class Meta:
         ordering = ["-date"]
