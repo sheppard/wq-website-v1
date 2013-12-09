@@ -1,5 +1,5 @@
 from wq.db.rest import views
-from wq.app.util import collect
+from wq.app.build import collect
 from rest_framework.response import Response
 from rest_framework import status
 from django.http import Http404

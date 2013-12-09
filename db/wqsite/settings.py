@@ -167,6 +167,6 @@ try:
 except ImportError:
    pass
 
-from wq.app.util import collect
+from wq.app.build import collect
 CONF = collect.readfiles(PROJECT_ROOT + '/conf', 'yaml', 'yml')
 MARKDOWN = ['fenced_code', 'tables']
