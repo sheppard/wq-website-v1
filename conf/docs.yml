@@ -5,6 +5,9 @@
   id: philosophy
   label: "Philosophy"
 - 
+  id: api
+  label: "wq API conventions"
+- 
   id: app
   label: "wq.app: modules"
 - 
@@ -22,6 +25,3 @@
 - 
   id: io
   label: "wq.io"
-- 
-  id: api
-  label: "wq API conventions"
