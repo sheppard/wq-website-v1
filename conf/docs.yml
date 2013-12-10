@@ -17,14 +17,11 @@
   id: patterns
   label: "wq.db Design Patterns"
 - 
+  id: contrib
+  label: "wq.db contrib apps"
+- 
   id: io
   label: "wq.io"
 - 
   id: api
   label: "wq API conventions"
-- 
-  id: vera
-  label: "wq.db: vera"
-- 
-  id: files
-  label: "wq.db: files"
