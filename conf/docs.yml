@@ -6,22 +6,22 @@
   label: "Philosophy"
 - 
   id: api
-  label: "wq API conventions"
+  label: "API Conventions"
 - 
   id: app
-  label: "wq.app: modules"
+  label: "wq.app: Modules"
 - 
   id: build
-  label: "wq.app: build tool"
+  label: "wq.app: Build Tool"
 - 
   id: rest
-  label: "wq.db REST services"
+  label: "wq.db: REST Services"
 - 
   id: patterns
-  label: "wq.db Design Patterns"
+  label: "wq.db: Design Patterns"
 - 
   id: contrib
-  label: "wq.db contrib apps"
+  label: "wq.db: Contrib Apps"
 - 
   id: io
-  label: "wq.io"
+  label: "wq.io: Dataset IO"
