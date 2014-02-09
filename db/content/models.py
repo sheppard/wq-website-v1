@@ -6,6 +6,7 @@ class Page(models.IdentifiedModel):
     description = models.TextField()
     markdown = models.TextField()
     submodule = models.BooleanField(default=False)
+    latest_version = models.CharField(null=True, blank=True, max_length=8)
     updated = models.DateTimeField(auto_now=True)
 
 class Paper(models.IdentifiedRelatedModel):

@@ -35,6 +35,11 @@
           and <strong>RequireJS</strong>.
         </p>
 
+        <p class="ui-content ui-corners-all ui-btn-hover-b">
+           <b>wq 0.5.0</b> was released on February 8th, 2014!<br>
+           <a href="/docs/setup">Install</a> &bull; <a href="https://github.com/wq/wq/releases">View Release Notes</a>
+        </p>
+
         <ul data-role="listview" data-theme="c" data-divider-theme="a"
             data-inset="true" style="clear:both">
           <li data-role="list-divider">Submodules</li>
@@ -44,6 +49,9 @@
              <h3>{{title}}</h3>
              <img src="/images/80/{{id}}.png">
              <p>{{{description}}}</p>
+             {{#latest_version}}
+             <span class="ui-li-count">{{latest_version}}</span>
+             {{/latest_version}}
           </a></li>
           {{/submodule}}
           {{/list}}
