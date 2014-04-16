@@ -41,7 +41,7 @@ class Paper(models.IdentifiedRelatedModel):
 
     @property
     def acm_dl(self):
-        ids = self.identifiers.filter(authority__name="ACM Digital Library")
+        ids = self.identifiers.filter(authority__name__contains="ACM")
         if ids:
             return ids[0].url
         else:
@@ -56,3 +56,23 @@ class PDF(File):
         return "papers"
     class Meta:
         proxy = True
+
+class Example(models.IdentifiedModel):
+    title = models.CharField(max_length=255)
+    home_url = models.CharField(max_length=255, null=True, blank=True)
+    icon_url = models.CharField(max_length=255, null=True, blank=True)
+    repo_url = models.CharField(max_length=255, null=True, blank=True)
+    app_url = models.CharField(max_length=255, null=True, blank=True)
+
+    description = models.TextField()
+    markdown = models.TextField()
+
+    app_version = models.CharField(null=True, blank=True, max_length=8)
+    db_version = models.CharField(null=True, blank=True, max_length=8)
+    io_version = models.CharField(null=True, blank=True, max_length=8)
+    vera_version = models.CharField(null=True, blank=True, max_length=8)
+    api_version = models.CharField(null=True, blank=True, max_length=8)
+    developer = models.ForeignKey("auth.User", null=True, blank=True)
+    public = models.BooleanField()
+
+    updated = models.DateTimeField(auto_now=True)

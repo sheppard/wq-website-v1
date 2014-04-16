@@ -3,9 +3,9 @@
   title: "About"
   short_title: "About"
 -
-  id: "license"
-  title: "License"
-  short_title: "License"
+  id: "examples/"
+  title: "Examples"
+  short_title: "Demo"
 -
   id: "docs/"
   title: "Documentation"

@@ -1,6 +1,6 @@
 // Context helpers
 define(["wq/pages"],
-function(pages, marked) {
+function(pages) {
 return {
     'current': function() {
         // Selected menu page

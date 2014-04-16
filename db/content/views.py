@@ -6,10 +6,6 @@ from django.http import Http404
 from django.conf import settings
 import markdown, re
 
-from wq.db.rest import app
-from .models import Page, Paper
-from .serializers import PageSerializer, PaperSerializer
-
 # Load documentation files from directory
 def get_docs(type_id):
     doc_files = collect.readfiles(
@@ -107,6 +103,3 @@ class DocRedirectView(DocDetailView):
         response['Location'] = "/docs/%s" % doc
         response.status_code = status.HTTP_301_MOVED_PERMANENTLY
         return response
-
-app.router.register_model(Page, url="", serializer=PageSerializer)
-app.router.register_model(Paper, url="research", serializer=PaperSerializer)

@@ -79,3 +79,21 @@ a.github-file {
 h1, h2, pre {
   clear: both;
 }
+h1.example {
+  clear: none;
+}
+table.modules {
+  float: right;
+  margin: 1em;
+}
+table.modules td {
+  text-align: center;
+}
+table.modules a {
+  text-decoration: none;
+}
+table.modules img {
+  width: 40px;
+  height: 40px;
+  margin: -10px;
+}
