@@ -32,15 +32,6 @@
             "jsonp": "define"
         },
         {
-            "paths": ["../wq/docs"],
-            "type": "md",
-            "output": "js/wqsite/docs.js",
-            "json": {
-                "indent": 4
-            },
-            "jsonp": "define"
-        },
-        {
             "paths": ["../conf"],
             "type": "yaml",
             "extension": "yml",

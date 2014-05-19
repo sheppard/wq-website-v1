@@ -20,7 +20,7 @@ md.postProcess = function(html) {
 doc.init();
 
 // Prefetch important data
-['', 'research', 'identifiers', 'relationships', 'examples'].forEach(prefetch);
+['', 'research', 'identifiers', 'relationships', 'examples', 'chapters', 'docs'].forEach(prefetch);
 function prefetch(url) {
     ds.prefetch({'url': url});
 }
