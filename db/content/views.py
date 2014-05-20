@@ -31,7 +31,8 @@ class DocViewSet(views.ModelViewSet):
                     'id': row['chapter_id'],
                     'type_id': row['chapter_id'],
                     'label': row['chapter_label'],
-                    'section': True
+                    'chapter_id': row['chapter_id'],
+                    'section': True,
                 })
                 chapter = row['chapter_id']
             rows.append(row)
