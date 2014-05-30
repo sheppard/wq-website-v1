@@ -34,6 +34,28 @@ class Doc(BasePage):
     is_jsdoc = models.BooleanField(default=False)
     interactive = models.BooleanField(default=False)
 
+    @property
+    def next(self):
+        return self.get_adjacent_doc(+1)
+    
+    @property
+    def prev(self):
+        return self.get_adjacent_doc(-1)
+
+    def get_adjacent_doc(self, diff):
+        if not hasattr(Doc, "_id_index"):
+            Doc._id_index = {}
+            Doc._ids = {}
+            qs = Doc.objects.order_by("chapter__order", "_order")
+            for i, doc in enumerate(qs):
+                Doc._id_index[doc.id] = i
+                Doc._ids[i] = doc.id
+
+        i = Doc._id_index[self.id]
+        if i + diff < 0 or i + diff == len(Doc._ids):
+             return None
+        return Doc.objects.get(pk=Doc._ids[i + diff])
+
     def __unicode__(self):
         return self.title
 

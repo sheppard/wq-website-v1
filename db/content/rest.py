@@ -1,6 +1,6 @@
 from wq.db.rest import app
 from .models import Page, Paper, Example, Doc, Chapter
-from .serializers import PageSerializer, PaperSerializer
+from .serializers import PageSerializer, DocSerializer, PaperSerializer
 from .views import DocViewSet
 from wq.db.patterns.models import Identifier
 
@@ -23,7 +23,7 @@ app.router.register_model(
 app.router.register_model(
     Doc,
     queryset=Doc.objects.order_by("chapter__order", "_order"),
-    serializer=PageSerializer,
+    serializer=DocSerializer,
     viewset=DocViewSet,
 )
 app.router.register_model(Chapter)

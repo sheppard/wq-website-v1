@@ -32,6 +32,29 @@ class PageSerializer(ModelSerializer):
             default_fields['html'] = SerializerMethodField('get_html')
         return default_fields
 
+class DocSerializer(PageSerializer):
+    next_id = SerializerMethodField('get_next_id')
+    next_label = SerializerMethodField('get_next_label')
+    prev_id = SerializerMethodField('get_prev_id')
+    prev_label = SerializerMethodField('get_prev_label')
+
+    def get_next_id(self, instance):
+        if instance.next:
+            return instance.next.primary_identifier.slug
+
+    def get_next_label(self, instance):
+        if instance.next:
+            return unicode(instance.next)
+
+    def get_prev_id(self, instance):
+        if instance.prev:
+            return instance.prev.primary_identifier.slug
+    
+    def get_prev_label(self, instance):
+        if instance.prev:
+            return unicode(instance.prev)
+
+
 class PaperSerializer(ModelSerializer):
     acm_dl = Field()
     doi = Field()
