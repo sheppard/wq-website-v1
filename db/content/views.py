@@ -6,12 +6,14 @@ from rest_framework import status
 # Redirect e.g. /docs/app.js to /docs/app-js
 class DocRedirectView(views.SimpleView):
     template_name = "doc_detail.html"
+
     def get(self, request, doc=None):
         doc = doc.replace(".js", "-js")
         response = Response({})
         response['Location'] = "/docs/%s" % doc
         response.status_code = status.HTTP_301_MOVED_PERMANENTLY
         return response
+
 
 class DocViewSet(views.ModelViewSet):
     def filter_queryset(self, qs):
@@ -37,7 +39,7 @@ class DocViewSet(views.ModelViewSet):
                 chapter = row['chapter_id']
             rows.append(row)
         response.data['list'] = rows
-        if "section" in request.GET: 
+        if "section" in request.GET:
             response['Location'] = "/chapters/%s/docs" % request.GET["section"]
             response.status_code = status.HTTP_301_MOVED_PERMANENTLY
         return response

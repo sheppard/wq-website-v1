@@ -4,6 +4,7 @@ from wq.db.contrib.files.admin import FileAdmin
 
 from .models import Page, Paper, PDF, Example, Doc, Chapter
 
+
 class ExampleAdmin(admin.IdentifiedModelAdmin):
     list_filter = (
         "app_version",
@@ -12,7 +13,8 @@ class ExampleAdmin(admin.IdentifiedModelAdmin):
         "vera_version",
         "api_version",
         "public",
-     )
+    )
+
 
 class DocAdmin(admin.IdentifiedModelAdmin):
     list_display = (

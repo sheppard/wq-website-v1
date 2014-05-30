@@ -37,7 +37,7 @@ class Doc(BasePage):
     @property
     def next(self):
         return self.get_adjacent_doc(+1)
-    
+
     @property
     def prev(self):
         return self.get_adjacent_doc(-1)
@@ -53,7 +53,7 @@ class Doc(BasePage):
 
         i = Doc._id_index[self.id]
         if i + diff < 0 or i + diff == len(Doc._ids):
-             return None
+            return None
         return Doc.objects.get(pk=Doc._ids[i + diff])
 
     def __unicode__(self):
@@ -66,14 +66,14 @@ class Doc(BasePage):
 
 class Paper(models.IdentifiedRelatedModel):
     short_title = models.CharField(max_length=40)
-    full_title  = models.CharField(max_length=255)
+    full_title = models.CharField(max_length=255)
     description = models.TextField()
-    abstract    = models.TextField()
+    abstract = models.TextField()
 
-    authors     = models.CharField(max_length=255)
-    conference  = models.CharField(max_length=255)
+    authors = models.CharField(max_length=255)
+    conference = models.CharField(max_length=255)
     conference_url = models.URLField(null=True)
-    date        = models.DateField(null=True)
+    date = models.DateField(null=True)
 
     conference_longname = models.CharField(max_length=255)
     publisher = models.CharField(max_length=255)

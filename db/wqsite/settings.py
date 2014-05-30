@@ -163,9 +163,9 @@ LOGGING = {
 }
 
 try:
-   from local_settings import *
+    from local_settings import *
 except ImportError:
-   pass
+    pass
 
 from wq.app.build import collect
 CONF = collect.readfiles(PROJECT_ROOT + '/conf', 'yaml', 'yml')

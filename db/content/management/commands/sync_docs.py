@@ -15,26 +15,26 @@ import datetime
 
 class Command(NoArgsCommand):
     def handle_noargs(self, **options):
-       for i, c in enumerate(settings.CONF['docs']):
-           chapter = Chapter(
-               id=c['id'],
-               title=c['label'],
-               order=i,
-           )
-           chapter.save()
+        for i, c in enumerate(settings.CONF['docs']):
+            chapter = Chapter(
+                id=c['id'],
+                title=c['label'],
+                order=i,
+            )
+            chapter.save()
 
-           docs = get_chapter_docs(c['id'])
-           for i, d in enumerate(docs):
-               doc = Doc.objects.find(d['id'])
-               doc.title = d['title']
-               doc.chapter_id = d['chapter']
-               doc.description = d.get('description', "")
-               doc.is_jsdoc = d.get('is_jsdoc', False)
-               doc.interactive = d['interactive']
-               doc.updated = d['updated']
-               doc.markdown = d['markdown']
-               doc._order = d.get('order', i)
-               doc.save()
+            docs = get_chapter_docs(c['id'])
+            for i, d in enumerate(docs):
+                doc = Doc.objects.find(d['id'])
+                doc.title = d['title']
+                doc.chapter_id = d['chapter']
+                doc.description = d.get('description', "")
+                doc.is_jsdoc = d.get('is_jsdoc', False)
+                doc.interactive = d['interactive']
+                doc.updated = d['updated']
+                doc.markdown = d['markdown']
+                doc._order = d.get('order', i)
+                doc.save()
 
 
 # Load documentation files from directory

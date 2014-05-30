@@ -13,7 +13,7 @@ page_detail = app.router.get_viewset_for_model(Page).as_view(
 )
 
 urlpatterns = patterns('',
-    # Special handing for wq.* and docs/*.js pages since their slugs are 
+    # Special handing for wq.* and docs/*.js pages since their slugs are
     # technically invalid
     url(r'^(?P<primary_identifiers__slug>wq\.\w+)', page_detail),
     url(r'^docs/(?P<doc>\w+\.js)/?$', DocRedirectView.as_view()),

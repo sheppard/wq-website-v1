@@ -8,6 +8,7 @@ from wq.db.patterns.models import Identifier
 app.router.register_model(Page, url="", serializer=PageSerializer)
 app.router.register_model(Paper, url="research", serializer=PaperSerializer)
 
+
 def filter_examples(qs, request):
     if request.user.is_authenticated():
         return qs.all()
@@ -30,5 +31,5 @@ app.router.register_model(Chapter)
 
 app.router.register_queryset(
     Identifier,
-    Identifier.objects.exclude(content_type__model__in=['example','doc']),
+    Identifier.objects.exclude(content_type__model__in=['example', 'doc']),
 )
