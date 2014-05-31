@@ -21,7 +21,7 @@ class PageSerializer(ModelSerializer):
             html
         )
         html = re.sub(
-            r'(href="http[s]?:\/\/[^wq.io])',
+            r'(href="http[s]?:\/\/(?!wq\.io))',
             r'rel="external" \1',
             html
         )

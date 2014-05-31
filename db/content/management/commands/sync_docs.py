@@ -74,7 +74,8 @@ def get_chapter_docs(chapter_id):
             doc.update(yaml.load(conf))
             markdown = markdown[1:]
 
-        doc['title'] = re.match('(.*)', markdown).group(0)
+        if 'title' not in doc:
+            doc['title'] = re.match('(.*)', markdown).group(0)
         doc['markdown'] = markdown
         doc['interactive'] = "data-interactive" in markdown
 

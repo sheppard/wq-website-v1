@@ -13,7 +13,7 @@ md.postProcess = function(html) {
         /a (href="https:\/\/github.com\/[^"]+\/blob)/g,
         'a class="github-src" $1'
     ).replace (
-        /(href="http[s]?:\/\/[^wq.io])/g,
+        /(href="http[s]?:\/\/(?!wq.io))/g,
         'rel="external" $1'
     );
 }

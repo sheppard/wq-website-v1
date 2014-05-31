@@ -97,3 +97,10 @@ table.modules img {
   height: 40px;
   margin: -10px;
 }
+
+a[rel="external"]:after {
+  background: url("external.png") no-repeat 0 45% transparent;
+  content: "";
+  margin-left: 2px;
+  padding-left: 12px;
+}
