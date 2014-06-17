@@ -26,6 +26,9 @@ class Command(NoArgsCommand):
             docs = get_chapter_docs(c['id'])
             for i, d in enumerate(docs):
                 doc = Doc.objects.find(d['id'])
+                ident = doc.primary_identifier
+                ident.slug = d['id']
+                ident.save()
                 doc.title = d['title']
                 doc.chapter_id = d['chapter']
                 doc.description = d.get('description', "")
