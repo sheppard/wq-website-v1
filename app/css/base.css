@@ -111,3 +111,10 @@ div[data-interactive] {
   background-color: #fff;
   border: 1px solid #ccc;
 }
+blockquote {
+  border: 1px solid #ccc;
+  background-color: #fffff6;
+  padding-left: 5%;
+  padding-right: 5%;
+  margin: 0;
+}
