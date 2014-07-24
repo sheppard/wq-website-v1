@@ -36,6 +36,7 @@ class Command(NoArgsCommand):
                 doc.interactive = d['interactive']
                 doc.updated = d['updated']
                 doc.markdown = d['markdown']
+                doc.incomplete = "WIP" in doc.markdown
                 doc._order = d.get('order', i)
                 doc.save()
 

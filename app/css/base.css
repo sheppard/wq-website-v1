@@ -118,3 +118,6 @@ blockquote {
   padding-right: 5%;
   margin: 0;
 }
+.incomplete a, .incomplete span {
+  color: #999 !important;
+}

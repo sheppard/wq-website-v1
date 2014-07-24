@@ -1,6 +1,6 @@
-define(["wq/app", "wq/store", "wq/markdown", 
+define(["wq/app", "wq/store", "wq/markdown", "wq/template",
         "./config", "./templates", "./doc"],
-function(app, ds, md, config, templates, doc) {
+function(app, ds, md, tmpl, config, templates, doc) {
 
 // Initialize wq.app
 app.init(config, templates);
@@ -20,9 +20,26 @@ md.postProcess = function(html) {
 doc.init();
 
 // Prefetch important data
-['', 'research', 'identifiers', 'relationships', 'examples', 'chapters', 'docs'].forEach(prefetch);
+['', 'research', 'identifiers', 'relationships', 'examples', 'chapters'].forEach(prefetch);
 function prefetch(url) {
     ds.prefetch({'url': url});
+}
+
+if (ds.exists({'url': 'docs', 'page': 1}))
+    _complete(ds.get({'url': 'docs', 'page': 1}));
+ds.prefetch({'url': 'docs'}, _complete);
+
+function _complete(data) {
+    data = data.filter(function(d){
+        return !d.section;
+    });
+    var completed = data.filter(function(d){
+        return !d.incomplete;
+    }).length;
+    tmpl.setDefault(
+        'completed',
+        Math.round(completed / data.length * 100)
+    );
 }
 
 });

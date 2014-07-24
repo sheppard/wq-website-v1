@@ -12,13 +12,26 @@
       </div>
       {{>menu}}
       <div data-role="content">
+        {{^parent_id}}{{#completed}}
+        <blockquote>
+          Please bear with us, the documentation is a work in progress...
+          Currently {{completed}}% complete.
+        </blockquote>
+        <br>
+        {{/completed}}{{/parent_id}}
         <ul data-role="listview" data-filter="true">
         {{#list}}
           {{#section}}
           <li data-role="list-divider" data-theme="a">{{label}}</li>
           {{/section}}
           {{^section}}
-          <li data-filtertext="{{type_id}} {{id}} {{type_label}} {{label}}"><a href="/docs/{{id}}">{{label}}</a></li>
+          <li {{#incomplete}} class="incomplete" data-icon="minus"{{/incomplete}}
+              data-filtertext="{{type_id}} {{id}} {{type_label}} {{label}}">
+            <a href="/docs/{{id}}">
+              {{label}}
+              {{#incomplete}}<span class="ui-li-count">WIP</span>{{/incomplete}}
+            </a>
+          </li>
           {{/section}}
         {{/list}}
         </ul>

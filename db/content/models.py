@@ -33,6 +33,7 @@ class Doc(BasePage):
     chapter = models.ForeignKey(Chapter, null=True)
     is_jsdoc = models.BooleanField(default=False)
     interactive = models.BooleanField(default=False)
+    incomplete = models.BooleanField(default=False)
 
     @property
     def next(self):
