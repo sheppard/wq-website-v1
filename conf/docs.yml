@@ -20,8 +20,8 @@
   id: patterns
   label: "wq.db: Design Patterns"
 - 
-  id: contrib
-  label: "wq.db: Contrib Apps"
-- 
   id: io
   label: "wq.io: Dataset IO"
+- 
+  id: contrib
+  label: "wq.db: Contrib Apps"
