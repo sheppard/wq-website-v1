@@ -107,6 +107,7 @@ INSTALLED_APPS = (
     'wq.db.patterns.annotate',
     'wq.db.patterns.identify',
     'wq.db.patterns.relate',
+    'wq.db.patterns.locate',
     'wq.db.rest.auth',
 
     'wq.db.contrib.files',

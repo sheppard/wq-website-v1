@@ -1,9 +1,10 @@
-define(["wq/app", "wq/store", "wq/markdown", "wq/template",
+define(["wq/app", "wq/map", "wq/store", "wq/markdown", "wq/template",
         "./config", "./templates", "./doc"],
-function(app, ds, md, tmpl, config, templates, doc) {
+function(app, map, ds, md, tmpl, config, templates, doc) {
 
 // Initialize wq.app
 app.init(config, templates);
+map.init(config.map);
 md.init();
 md.postProcess = function(html) {
     return html.replace(

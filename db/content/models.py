@@ -29,7 +29,7 @@ class Chapter(models.Model):
         ordering = ["order"]
 
 
-class Doc(BasePage):
+class Doc(models.LocatedModel, BasePage):
     chapter = models.ForeignKey(Chapter, null=True)
     is_jsdoc = models.BooleanField(default=False)
     interactive = models.BooleanField(default=False)
