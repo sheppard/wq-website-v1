@@ -102,7 +102,6 @@ INSTALLED_APPS = (
 
     'south',
     'rest_framework',
-    'social_auth',
 
     'wq.db.patterns.annotate',
     'wq.db.patterns.identify',
