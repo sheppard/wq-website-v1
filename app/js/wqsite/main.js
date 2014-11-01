@@ -19,6 +19,7 @@ md.postProcess = function(html) {
     );
 }
 doc.init();
+app.jqmInit();
 
 // Prefetch important data
 ['', 'research', 'identifiers', 'relationships', 'examples', 'chapters'].forEach(prefetch);

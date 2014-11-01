@@ -10,12 +10,6 @@
 }
 /* Add margins and curved edges for larger screens */
 @media screen and (min-width: 810px) {
-    body.ui-overlay-c {
-        @include background-image(linear-gradient(#fff, #38323F));
-        background-repeat: no-repeat;
-        height: 400px;
-        background-color: #35323F;
-    }
     .ui-page {
         position: relative !important;
         max-width: 800px;
@@ -28,7 +22,6 @@
         border-right: 1px solid #999 !important;
         border-bottom: 1px solid #999 !important;
         @include box-shadow(3px 3px 6px #ddd);
-        @include background-image(linear-gradient(#fff, #efefef));
         @include border-top-right-radius(3em);
         @include border-bottom-left-radius(3em);
     }

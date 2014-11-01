@@ -12,14 +12,15 @@
       </div>
       {{>menu}}
       <div data-role="content">
-        <ul data-role="listview" data-divider-theme="a" data-filter="true">
+        <ul data-role="listview" 
+          data-theme="c" data-divider-theme="a" data-filter="true">
           <li data-role="list-divider">Example Projects</li>
         {{#list}}
           <li><a href="/examples/{{id}}">
             {{#icon_url}}
             <img src="{{icon_url}}" class="ui-li-icon">
             {{/icon_url}}
-            {{title}}
+            <h3>{{title}}</h3>
             <span class="ui-li-count">
               {{#app_version}}&check; wq.app{{/app_version}}
               {{#db_version}}&check; wq.db{{/db_version}}

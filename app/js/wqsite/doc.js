@@ -31,12 +31,6 @@ function _execInteraction(info, $page) {
 // Initialize URL routes
 function init() {
     pages.addRoute('docs/(.+)','s', _showItem);
-
-    // Ensure interaction loads when doc is rendered on server via deep link
-    var $page = jqm.activePage;
-    if ($page && $page.data('docid')) {
-        _loadInteraction($page.data('docid'), $page);
-    }
 }
 
 return {

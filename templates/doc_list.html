@@ -19,10 +19,11 @@
         </blockquote>
         <br>
         {{/completed}}{{/parent_id}}
-        <ul data-role="listview" data-filter="true">
+        <ul data-role="listview" data-filter="true" 
+          data-theme="c" data-divider-theme="a">
         {{#list}}
           {{#section}}
-          <li data-role="list-divider" data-theme="a">{{label}}</li>
+          <li data-role="list-divider">{{label}}</li>
           {{/section}}
           {{^section}}
           <li {{#incomplete}} class="incomplete" data-icon="minus"{{/incomplete}}

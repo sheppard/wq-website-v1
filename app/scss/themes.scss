@@ -7,34 +7,35 @@ $a-dark:    #7a6b8f;
 $a-light:   #98a;
 $a-lighter: #335;
 
+$s-dark:  #667b7c;
+$s-light: #539aa3;
+
+
 @include jquery-mobile-theme(
   $theme:       a,
-  $bar-bg1:     $a-dark,
-  $bar-bg2:     $a-darker,
   $bar-bg:      mix($a-dark, $a-darker),
   $bar-text:    #fff,
   $bar-shadow:  false,
 
-  $up-bg1:      $a-dark,
-  $up-bg2:      $a-darker,
+  $page-shadow:  false,
+
   $up-bg:       mix($a-dark, $a-darker),
   $up-border:   $a-darker,
   $up-text:     #fff,
   $up-shadow:   false,
 
-  $down-bg1:    $a-lighter,
-  $down-bg2:    $a-light,
   $down-bg:     mix($a-light, $a-lighter),
   $down-border: $a-darker,
   $down-text:   #fff,
   $down-shadow: false,
 
-  $hover-bg1:    $a-light,
-  $hover-bg2:    $a-lighter,
   $hover-bg:     mix($a-light, $a-lighter),
   $hover-border: #001,
   $hover-text:   #fff,
-  $hover-shadow: false
+  $hover-shadow: false,
+
+  $active-border: #2395A5,
+  $active-bg:     mix($s-dark, $s-light),
 );
 
 /* Aqua swatch */
@@ -46,37 +47,27 @@ $b-lighter = #dff;
 @include jquery-mobile-theme(
   $theme:       b,
 
-  $bar-bg1:     $b-darker,
-  $bar-bg2:     $b-dark,
   $bar-bg:      mix($b-dark, $b-darker),
 
-  $up-bg1:      #b7f1f1,
-  $up-bg2:      #7a9292,
   $up-bg:       mix($b-dark, $b-darker),
   
-  $down-bg1:    $b-light,
-  $down-bg2:    $b-lighter,
   $down-bg:     mix($b-light, $b-lighter),
   
-  $hover-bg1:    $b-lighter,
-  $hover-bg2:    $b-light,
   $hover-bg:     mix($b-light, $b-lighter),
+
+  $active-border: #2395A5,
+  $active-bg:     mix($s-dark, $s-light),
 );
+  
+.highlight-box {
+    background-color: mix($b-light, $b-lighter);
+    border: 2px solid $b-light;
+}
 
 @include jquery-mobile-theme($theme: c);
 @include jquery-mobile-theme($theme: d);
 @include jquery-mobile-theme($theme: e);
 
-$s-dark:  #667b7c;
-$s-light: #539aa3;
-
 @include jquery-mobile-global(
   $round:         1.2em,
-  $active-border: #2395A5,
-  $active-bg1:    $s-dark,
-  $active-bg2:    $s-light,
-  $active-bg:     mix($s-dark, $s-light),
-);
-@include jquery-mobile-icons(
-    $url: "lib/images"
 );
