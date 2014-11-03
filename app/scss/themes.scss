@@ -4,6 +4,7 @@
 /* Dark purple swatch */
 $a-darker:  #16141a;
 $a-dark:    #7a6b8f;
+$a-darker:  mix(mix($a-dark, $a-darker), $a-darker);
 $a-light:   #98a;
 $a-lighter: #335;
 
@@ -36,6 +37,7 @@ $s-light: #539aa3;
 
   $active-border: #2395A5,
   $active-bg:     mix($s-dark, $s-light),
+  $active-shadow: false,
 );
 
 /* Aqua swatch */
@@ -48,16 +50,26 @@ $b-lighter = #dff;
   $theme:       b,
 
   $bar-bg:      mix($b-dark, $b-darker),
+  $bar-shadow:  false,
+  $page-shadow: false,
 
   $up-bg:       mix($b-dark, $b-darker),
+  $up-shadow:   false,
   
   $down-bg:     mix($b-light, $b-lighter),
+  $down-shadow: false,
   
   $hover-bg:     mix($b-light, $b-lighter),
+  $hover-shadow: false,
 
   $active-border: #2395A5,
   $active-bg:     mix($s-dark, $s-light),
+  $active-shadow: false,
+
 );
+.ui-bar-b .ui-navbar .ui-btn {
+  font-size: 14px !important;
+}
   
 .highlight-box {
     background-color: mix($b-light, $b-lighter);
