@@ -15,6 +15,8 @@ class BasePage(models.IdentifiedModel):
 class Page(BasePage):
     submodule = models.BooleanField(default=False)
     latest_version = models.CharField(null=True, blank=True, max_length=8)
+    version_date = models.DateField(null=True, blank=True)
+    showcase = models.BooleanField(default=False)
 
 
 class Chapter(models.Model):

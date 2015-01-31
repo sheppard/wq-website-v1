@@ -12,13 +12,6 @@
       </div>
       {{>menu}}
       <div data-role="content">
-        {{^parent_id}}{{#completed}}
-        <blockquote>
-          Please bear with us, the documentation is a work in progress...
-          Currently {{completed}}% complete.
-        </blockquote>
-        <br>
-        {{/completed}}{{/parent_id}}
         <ul data-role="listview" data-filter="true" 
           data-theme="c" data-divider-theme="a">
         {{#list}}

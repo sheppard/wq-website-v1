@@ -2,77 +2,69 @@
 @import "compass/css3";
 
 /* Dark purple swatch */
-$a-darker:  #16141a;
-$a-dark:    #7a6b8f;
-$a-darker:  mix(mix($a-dark, $a-darker), $a-darker);
-$a-light:   #98a;
-$a-lighter: #335;
-
-$s-dark:  #667b7c;
-$s-light: #539aa3;
-
+$a-dark: mix(#4E3878, #544A63);
+$a-light: #6F519E;
 
 @include jquery-mobile-theme(
   $theme:       a,
-  $bar-bg:      mix($a-dark, $a-darker),
+  $bar-bg:      $a-dark,
   $bar-text:    #fff,
   $bar-shadow:  false,
 
   $page-shadow:  false,
 
-  $up-bg:       mix($a-dark, $a-darker),
-  $up-border:   $a-darker,
+  $up-bg:       $a-dark,
+  $up-border:   mix($a-dark, black),
   $up-text:     #fff,
   $up-shadow:   false,
 
-  $down-bg:     mix($a-light, $a-lighter),
-  $down-border: $a-darker,
+  $down-bg:     $a-light,
+  $down-border: $a-dark,
   $down-text:   #fff,
   $down-shadow: false,
 
-  $hover-bg:     mix($a-light, $a-lighter),
+  $hover-bg:     $a-light,
   $hover-border: #001,
   $hover-text:   #fff,
   $hover-shadow: false,
 
-  $active-border: #2395A5,
-  $active-bg:     mix($s-dark, $s-light),
+  $active-border: $a-light,
+  $active-bg:     mix($a-light, white),
   $active-shadow: false,
 );
 
 /* Aqua swatch */
-$b-darker  = #b7f1f1;
-$b-dark    = #7a9292;
-$b-light   = #9bb;
-$b-lighter = #dff;
+$b-dark    = #2F7470;
+$b-light   = mix(#9DD4D8, #99C2C2);
 
 @include jquery-mobile-theme(
   $theme:       b,
 
-  $bar-bg:      mix($b-dark, $b-darker),
+  $bar-bg:      $b-dark,
   $bar-shadow:  false,
   $page-shadow: false,
 
-  $up-bg:       mix($b-dark, $b-darker),
+  $up-bg:       $b-light,
   $up-shadow:   false,
   
-  $down-bg:     mix($b-light, $b-lighter),
+  $down-bg:     mix($b-light, white),
   $down-shadow: false,
   
-  $hover-bg:     mix($b-light, $b-lighter),
+  $hover-bg:     mix($b-light, white),
   $hover-shadow: false,
 
-  $active-border: #2395A5,
-  $active-bg:     mix($s-dark, $s-light),
+  $active-border: $b-dark,
+  $active-bg:     $b-dark,
   $active-shadow: false,
 
 );
 .ui-bar-b .ui-navbar .ui-btn {
   font-size: 14px !important;
+  font-variant: all-small-caps;
 }
   
 .highlight-box {
-    background-color: mix($b-light, $b-lighter);
+    background-color: mix($b-light, white);
     border: 2px solid $b-light;
 }
 
@@ -82,4 +74,5 @@ $b-lighter = #dff;
 
 @include jquery-mobile-global(
   $round:         1.2em,
+  $font: "Titillium Web", sans-serif
 );

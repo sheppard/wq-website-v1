@@ -2,7 +2,7 @@
 define(["wq/pages"],
 function(pages) {
 var ALIAS = {
-   'docs': 'chapters',
+   'docs/': 'chapters/'
 };
 return {
     'current': function() {

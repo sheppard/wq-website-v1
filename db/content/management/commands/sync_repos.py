@@ -10,7 +10,8 @@ TAG_URL = "https://api.github.com/repos/wq/%s/tags"
 
 class Command(NoArgsCommand):
     def handle_noargs(self, **options):
-        for page in Page.objects.filter(submodule=True):
+        pages = Page.objects.filter(submodule=True)
+        for page in pages:
             # Retrieve README from this module's repo
             modid = page.primary_identifier.slug
             readme = requests.get(README_URL % modid).text
@@ -28,6 +29,12 @@ class Command(NoArgsCommand):
             page.markdown = readme
 
             # Retrieve last tag
-            tag = requests.get(TAG_URL % modid).json()[0]['name']
-            page.latest_version = tag.replace("v", "")
+            tag = requests.get(TAG_URL % modid).json()[0]
+            commit = requests.get(tag['commit']['url']).json()['commit']
+            page.latest_version = tag['name'].replace("v", "")
+            page.version_date = commit['author']['date'].split("T")[0]
             page.save()
+        pages.update(showcase=False)
+        newest = pages.order_by('-version_date')[0]
+        newest.showcase = True
+        newest.save()

@@ -36,8 +36,10 @@
         </p>
 
         <p class="ui-content ui-corners-all highlight-box">
-           <b>wq 0.7.0</b> was released on November 24th, 2014!<br>
-           <a href="/docs/setup">Install</a> &bull; <a href="https://github.com/wq/wq/releases">View Release Notes</a>
+           {{#list}}{{#showcase}}
+           <b>{{id}} {{latest_version}}</b> was released on {{version_date_label}}!<br>
+           <a href="/docs/setup">Install</a> &bull; <a href="https://github.com/wq/{{id}}/releases">View Release Notes</a>
+           {{/showcase}}{{/list}}
         </p>
 
         <ul data-role="listview" data-theme="c" data-divider-theme="a"

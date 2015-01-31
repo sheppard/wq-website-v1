@@ -9,7 +9,7 @@ config.defaults = {
 
 // jQM transitions
 config.transitions = {
-    'default': "fade",
+    'default': "none",
     'maxwidth': 800
 };
 

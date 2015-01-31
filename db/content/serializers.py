@@ -5,8 +5,16 @@ import markdown
 import re
 from django.conf import settings
 
+SUFFIX = {
+    1: "st",
+    2: "nd",
+    3: "rd",
+}
+
 
 class PageSerializer(ModelSerializer):
+    version_date_label = SerializerMethodField("get_version_date")
+
     def get_html(self, obj):
         html = markdown.markdown(obj.markdown, settings.MARKDOWN)
         html = re.sub(
@@ -26,6 +34,15 @@ class PageSerializer(ModelSerializer):
             html
         )
         return html
+
+    def get_version_date(self, obj):
+        if not getattr(obj, 'version_date', None):
+            return None
+        date = obj.version_date.strftime('%B %d, %Y')
+        date = date.replace(" 0", " ")
+        sfx = SUFFIX.get(obj.version_date.day % 10, 'th')
+        date = date.replace(",", sfx + ",")
+        return date
 
     def get_default_fields(self, *args, **kwargs):
         default_fields = super(PageSerializer, self).get_default_fields(

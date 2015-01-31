@@ -27,8 +27,6 @@ class DocViewSet(views.ModelViewSet):
         response = super(DocViewSet, self).list(request, *args, **kwargs)
         chapter = None
         rows = []
-        completed = 0
-        total = len(response.data['list'])
         for row in response.data['list']:
             if row['chapter_id'] != chapter:
                 rows.append({
@@ -39,12 +37,8 @@ class DocViewSet(views.ModelViewSet):
                     'section': True,
                 })
                 chapter = row['chapter_id']
-            if not row['incomplete']:
-                completed += 1
             rows.append(row)
         response.data['list'] = rows
-        completed = int(float(completed) / total * 100)
-        response.data['completed'] = completed
         if "section" in request.GET:
             response['Location'] = "/chapters/%s/docs" % request.GET["section"]
             response.status_code = status.HTTP_301_MOVED_PERMANENTLY

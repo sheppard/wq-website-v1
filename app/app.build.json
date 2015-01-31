@@ -1,6 +1,5 @@
 {
     "optimize": {
-        "optimize": "none",
         "appDir": ".",
         "baseUrl": "js/lib",
         "dir":     "../htdocs-build",
