@@ -72,7 +72,8 @@ $b-light   = mix(#9DD4D8, #99C2C2);
 @include jquery-mobile-theme($theme: d);
 @include jquery-mobile-theme($theme: e);
 
+$font: "Titillium Web", sans-serif;
 @include jquery-mobile-global(
   $round:         1.2em,
-  $font: "Titillium Web", sans-serif
+  $font: $font
 );
