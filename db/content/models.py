@@ -36,6 +36,7 @@ class Doc(models.LocatedModel, BasePage):
     is_jsdoc = models.BooleanField(default=False)
     interactive = models.BooleanField(default=False)
     incomplete = models.BooleanField(default=False)
+    image = models.TextField(max_length=255, null=True, blank=True)
 
     @property
     def next(self):

@@ -32,6 +32,7 @@ class Command(NoArgsCommand):
                 doc.title = d['title']
                 doc.chapter_id = d['chapter']
                 doc.description = d.get('description', "")
+                doc.image = d.get('image', None)
                 doc.is_jsdoc = d.get('is_jsdoc', False)
                 doc.interactive = d['interactive']
                 doc.updated = d['updated']
@@ -80,6 +81,20 @@ def get_chapter_docs(chapter_id):
 
         if 'title' not in doc:
             doc['title'] = re.match('(.*)', markdown).group(0)
+        if 'description' not in doc:
+            match = re.search(r'\n(.+?\.)\s', markdown)
+            if match:
+                desc = match.group(1)
+                desc = desc.replace('[', '')
+                desc = desc.replace(']', '')
+                desc = desc.replace('*', '')
+                desc = desc.replace('`', '')
+                doc['description'] = desc
+        if 'image' not in doc:
+            match = re.search(r"wq.io/(.+?)\.png", markdown)
+            if match:
+                doc['image'] = "/%s.png" % match.group(1)
+
         doc['markdown'] = markdown
         doc['interactive'] = "data-interactive" in markdown
 
