@@ -76,6 +76,11 @@ class DocSerializer(PageSerializer):
             return unicode(instance.prev)
 
 
+class ExampleSerializer(PageSerializer):
+    modules = Field()
+    full_api = Field()
+
+
 class PaperSerializer(ModelSerializer):
     acm_dl = Field()
     doi = Field()

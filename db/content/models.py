@@ -1,8 +1,9 @@
 from wq.db.patterns import models
 from wq.db.contrib.files.models import File
 
+from django.utils.functional import cached_property
 
-class BasePage(models.IdentifiedModel):
+class BasePage(models.IdentifiedRelatedModel):
     title = models.CharField(max_length=255)
     description = models.TextField(null=True, blank=True)
     markdown = models.TextField(null=True, blank=True)
@@ -19,7 +20,7 @@ class Page(BasePage):
     showcase = models.BooleanField(default=False)
 
 
-class Chapter(models.Model):
+class Chapter(models.RelatedModel):
     id = models.CharField(primary_key=True, max_length=20)
     title = models.CharField(max_length=100)
     order = models.IntegerField()
@@ -131,5 +132,19 @@ class Example(BasePage):
     io_version = models.CharField(null=True, blank=True, max_length=8)
     vera_version = models.CharField(null=True, blank=True, max_length=8)
     api_version = models.CharField(null=True, blank=True, max_length=8)
+
     developer = models.ForeignKey("auth.User", null=True, blank=True)
     public = models.BooleanField()
+
+    @cached_property
+    def modules(self):
+        pages = Page.objects.filter_by_related(self, inverse=True)
+        pages = pages.filter(submodule=True)
+        return [
+            page.primary_identifier.slug
+            for page in pages
+        ]
+
+    @property
+    def full_api(self):
+        return ("wq.db" in self.modules and "wq.app" in self.modules)

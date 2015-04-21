@@ -22,7 +22,7 @@ class Command(NoArgsCommand):
 
             # Replace links to this page with bold text
             readme = readme.replace(
-                "[%s](http://wq.io/%s)" % (modid, modid),
+                "[%s](https://wq.io/%s)" % (modid, modid),
                 "**%s**" % modid
             )
             readme = readme.replace("[^1]", "<sup>1</sup>")

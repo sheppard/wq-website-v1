@@ -22,10 +22,9 @@
             {{/icon_url}}
             <h3>{{title}}</h3>
             <span class="ui-li-count">
-              {{#app_version}}&check; wq.app{{/app_version}}
-              {{#db_version}}&check; wq.db{{/db_version}}
-              {{#io_version}}&check; wq.io{{/io_version}}
-              {{#vera_version}}&check; vera{{/vera_version}}
+              {{#modules}}
+                &check; {{.}}
+              {{/modules}}
               {{#repo_url}}&check; on github{{/repo_url}}
             </p>
           </a></li>

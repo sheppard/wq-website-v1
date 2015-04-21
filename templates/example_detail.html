@@ -20,44 +20,20 @@
       <div data-role="content">
         <table class="modules" style="float:right">
            <tr><th colspan="2">Modules Used</th></tr>
-           {{#app_version}}
+           {{#modules}}
            <tr>
-             <td><a href="/wq.app" title="wq.app">
-               <img src="/images/80/wq.app.png" alt="wq.app">
-             </a></td>
-             <td>{{app_version}}</td>
-           </tr>
-           {{/app_version}}
-           {{#db_version}}
-           <tr>
-             <td><a href="/wq.db" title="wq.db">
-               <img src="/images/80/wq.db.png" alt="wq.db">
-             </a></td>
-             <td>{{db_version}}</td>
-           </tr>
-           {{/db_version}}
-           {{#io_version}}
-           <tr>
-             <td><a href="/wq.io" title="wq.io">
-               <img src="/images/80/wq.io.png" alt="wq.io">
-             </a></td>
-             <td>{{io_version}}</td>
-           </tr>
-           {{/io_version}}
-           {{#vera_version}}
-           <tr>
-             <td><a href="/vera" title="wq.db: vera">
-               <img src="/images/80/vera.png" alt="vera">
+             <td><a href="/{{.}}" title="{{.}}">
+               <img src="/images/80/{{.}}.png" alt="{{.}}">
              </a></td>
              <td>&check;</td>
            </tr>
-           {{/vera_version}}
-           {{#api_version}}
+           {{/modules}}
+           {{#full_api}}
            <tr>
              <td><a href="/chapters/api/docs" title="Follows wq API conventions">API</a></td>
              <td>&check;</td>
            </tr>
-           {{/api_version}}
+           {{/full_api}}
         </table>
         <h1 class="example">
           {{#icon_url}}<img src="{{icon_url}}">{{/icon_url}}
