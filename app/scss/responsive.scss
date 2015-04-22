@@ -7,6 +7,12 @@
     .short {
         display: block !important;
     }
+    .ui-li-count, .ui-li-aside {
+        display:none;
+    }
+    .ui-listview > .ui-li-has-count > .ui-btn-icon-right {
+        padding-right: 2em;
+    }
 }
 /* Add margins and curved edges for larger screens */
 @media screen and (min-width: 810px) {
@@ -24,6 +30,9 @@
         @include box-shadow(3px 3px 6px #ddd);
         @include border-top-right-radius(3em);
         @include border-bottom-left-radius(3em);
+    }
+    .ui-mobile .ui-page-active {
+        overflow-x: visible;
     }
     .ui-header {
         border-left: none;

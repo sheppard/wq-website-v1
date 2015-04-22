@@ -1,5 +1,5 @@
 from wq.db.patterns import models
-from wq.db.contrib.files.models import File
+from wq.db.contrib.files.models import File, BaseFile
 
 from django.utils.functional import cached_property
 
@@ -123,15 +123,9 @@ class PDF(File):
 
 class Example(BasePage):
     home_url = models.CharField(max_length=255, null=True, blank=True)
-    icon_url = models.CharField(max_length=255, null=True, blank=True)
     repo_url = models.CharField(max_length=255, null=True, blank=True)
     app_url = models.CharField(max_length=255, null=True, blank=True)
-
-    app_version = models.CharField(null=True, blank=True, max_length=8)
-    db_version = models.CharField(null=True, blank=True, max_length=8)
-    io_version = models.CharField(null=True, blank=True, max_length=8)
-    vera_version = models.CharField(null=True, blank=True, max_length=8)
-    api_version = models.CharField(null=True, blank=True, max_length=8)
+    icon = models.ImageField(null=True, blank=True, upload_to="icons")
 
     developer = models.ForeignKey("auth.User", null=True, blank=True)
     public = models.BooleanField()
@@ -148,3 +142,14 @@ class Example(BasePage):
     @property
     def full_api(self):
         return ("wq.db" in self.modules and "wq.app" in self.modules)
+
+
+class ScreenShot(BaseFile):
+    example = models.ForeignKey(Example)
+
+    def get_directory(self):
+        return "screenshots"
+
+    class Meta:
+        ordering = ('pk',)
+

@@ -24,5 +24,6 @@ urlpatterns = patterns('',
 
     # Default admin and wq.db routes
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^generate/', include('dmt.urls')),
     url(r'^',       include(app.router.urls)),
 )

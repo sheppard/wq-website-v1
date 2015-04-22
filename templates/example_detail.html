@@ -19,6 +19,11 @@
       </div>
       <div data-role="content">
         <table class="modules" style="float:right">
+           {{#icon}}
+           <tr><td colspan="2">
+             <img style="width:60px;height:60px" src="/media/{{icon}}">
+           </td></tr>
+           {{/icon}}
            <tr><th colspan="2">Modules Used</th></tr>
            {{#modules}}
            <tr>
@@ -36,7 +41,6 @@
            {{/full_api}}
         </table>
         <h1 class="example">
-          {{#icon_url}}<img src="{{icon_url}}">{{/icon_url}}
           {{label}}
         </h1>
         {{{html}}}
@@ -68,5 +72,14 @@
             </ul>
           </p>
         </div>
+     </div>
+     <div class="screenshots">
+       {{#screenshots}}
+       <!-- FIXME: move some of this to JS/CSS -->
+       <img src="/media/240/{{file}}" style="cursor:pointer" onclick="$('#popup-{{id}}').popup('open');">
+       <div data-role="popup" id="popup-{{id}}" data-overlay-theme="a">
+         <img src="/media/{{file}}" style="cursor:pointer;" onclick="$('#popup-{{id}}').popup('close');">
+       </div>
+       {{/screenshots}}
      </div>
 {{>footer}}

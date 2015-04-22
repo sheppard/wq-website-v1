@@ -128,3 +128,22 @@ blockquote {
 .incomplete a, .incomplete span {
   color: #999 !important;
 }
+.screenshots {
+   border: 1px solid #bbb;
+   background-color: #ddd;
+   padding: 0.5em;
+   border-radius: 1em;
+   text-align: center;
+   clear: both;
+}
+.screenshots img {
+   border: 1px solid #999;
+   margin: 0.5em;
+   border-radius: 0.5em;
+   width: 166px;
+   height: 166px;
+}
+.ui-li-aside {
+  font-weight: normal;
+  font-size: 0.8em;
+}

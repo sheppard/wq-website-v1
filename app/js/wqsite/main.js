@@ -1,6 +1,6 @@
 define(["wq/app", "wq/map", "wq/store", "wq/markdown", "wq/template",
-        "./config", "./templates", "./doc"],
-function(app, map, ds, md, tmpl, config, templates, doc) {
+        "./config", "./templates", "./doc", "./example"],
+function(app, map, ds, md, tmpl, config, templates, doc, example) {
 
 // Initialize wq.app
 app.init(config, templates);
@@ -19,6 +19,7 @@ md.postProcess = function(html) {
     );
 }
 doc.init();
+example.init();
 app.jqmInit();
 
 // Prefetch important data

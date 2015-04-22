@@ -2,19 +2,18 @@ from wq.db.patterns import admin
 from wq.db.patterns.models import RelationshipType, Authority
 from wq.db.contrib.files.admin import FileAdmin
 
-from .models import Page, Paper, PDF, Example, Doc, Chapter
+from .models import Page, Paper, PDF, Example, Doc, Chapter, ScreenShot
 
+
+class ScreenShotInline(admin.TabularInline):
+    model = ScreenShot
 
 class ExampleAdmin(admin.IdentifiedModelAdmin):
     list_filter = (
-        "app_version",
-        "db_version",
-        "io_version",
-        "vera_version",
-        "api_version",
         "public",
     )
 
+    inlines = admin.IdentifiedModelAdmin.inlines + [ScreenShotInline]
 
 class DocAdmin(admin.IdentifiedModelAdmin):
     list_display = (

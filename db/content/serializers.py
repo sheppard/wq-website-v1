@@ -4,6 +4,7 @@ from rest_framework.serializers import SerializerMethodField
 import markdown
 import re
 from django.conf import settings
+from .models import ScreenShot
 
 SUFFIX = {
     1: "st",
@@ -75,10 +76,15 @@ class DocSerializer(PageSerializer):
         if instance.prev:
             return unicode(instance.prev)
 
+class ScreenShotSerializer(ModelSerializer):
+    class Meta:
+        model = ScreenShot
+
 
 class ExampleSerializer(PageSerializer):
     modules = Field()
     full_api = Field()
+    screenshots = ScreenShotSerializer(many=True, source="screenshot_set")
 
 
 class PaperSerializer(ModelSerializer):
