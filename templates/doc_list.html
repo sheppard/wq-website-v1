@@ -11,6 +11,14 @@
         <h3>Documentation</h3>
       </div>
       {{>menu}}
+      <div data-role="header" data-theme="d">
+        {{>versions}}
+        <div>
+          <a href="{{#doc_version}}/{{doc_version}}{{/doc_version}}/docs/">
+            Docs
+          </a>
+        </div>
+      </div>
       <div data-role="content">
         <ul data-role="listview" data-filter="true" 
           data-theme="c" data-divider-theme="a">
@@ -21,9 +29,8 @@
           {{^section}}
           <li {{#incomplete}} class="incomplete" data-icon="minus"{{/incomplete}}
               data-filtertext="{{type_id}} {{id}} {{type_label}} {{label}}">
-            <a href="/docs/{{id}}">
+            <a href="{{#doc_version}}/{{doc_version}}{{/doc_version}}/docs/{{id}}">
               {{label}}
-              {{#incomplete}}<span class="ui-li-count">WIP</span>{{/incomplete}}
             </a>
           </li>
           {{/section}}

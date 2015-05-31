@@ -1,6 +1,7 @@
 from wq.db.rest import views
 from rest_framework.response import Response
 from rest_framework import status
+from .models import MarkdownType
 
 
 # Redirect e.g. /docs/app.js to /docs/app-js
@@ -9,9 +10,10 @@ class DocRedirectView(views.SimpleView):
 
     def get(self, request, doc=None):
         doc = doc.replace(".js", "-js")
+        version = MarkdownType.objects.all()[0]
         response = Response({})
-        response['Location'] = "/docs/%s" % doc
-        response.status_code = status.HTTP_301_MOVED_PERMANENTLY
+        response['Location'] = "/%s/docs/%s" % (version.name, doc)
+        response.status_code = status.HTTP_302_FOUND
         return response
 
 
@@ -27,6 +29,16 @@ class DocViewSet(views.ModelViewSet):
         response = super(DocViewSet, self).list(request, *args, **kwargs)
         chapter = None
         rows = []
+        current_version = MarkdownType.objects.all()[0]
+        doc_version = getattr(
+            request, 'doc_version', current_version.name,
+        )
+        response.data['doc_version'] = doc_version
+        response.data['versions'] = [{
+            'name': md.name,
+            'title': md.title,
+            'current': md.name == doc_version
+        } for md in MarkdownType.objects.order_by('pk')]
         for row in response.data['list']:
             if row['chapter_id'] != chapter:
                 rows.append({

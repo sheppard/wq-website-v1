@@ -3,7 +3,7 @@ function(jqm, pages, ds) {
 
 // Custom scripting for doc pages
 function _showItem(match, ui, params, hash, evt, $page) {
-    _loadInteraction(match[1], $page);
+    _loadInteraction(match[2], $page);
 }
 
 function _loadInteraction(docid, $page) {
@@ -30,7 +30,7 @@ function _execInteraction(info, $page) {
 
 // Initialize URL routes
 function init() {
-    pages.addRoute('docs/(.+)','s', _showItem);
+    pages.addRoute('([^/]*)/docs/(.+)','s', _showItem);
 }
 
 return {

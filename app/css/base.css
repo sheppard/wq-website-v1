@@ -147,3 +147,14 @@ blockquote {
   font-weight: normal;
   font-size: 0.8em;
 }
+.versions {
+  float: right;
+  color: #666;
+  font-weight: normal;
+}
+.versions a.ui-link {
+  font-weight: normal;
+}
+.versions strong {
+  color: #000;
+}

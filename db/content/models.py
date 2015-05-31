@@ -1,9 +1,10 @@
-from wq.db.patterns import models
+from django.db import models
+from wq.db.patterns import models as patterns
 from wq.db.contrib.files.models import File, BaseFile
 
 from django.utils.functional import cached_property
 
-class BasePage(models.IdentifiedRelatedModel):
+class BasePage(patterns.IdentifiedRelatedModel):
     title = models.CharField(max_length=255)
     description = models.TextField(null=True, blank=True)
     markdown = models.TextField(null=True, blank=True)
@@ -20,19 +21,22 @@ class Page(BasePage):
     showcase = models.BooleanField(default=False)
 
 
-class Chapter(models.RelatedModel):
+class Chapter(patterns.RelatedModel):
     id = models.CharField(primary_key=True, max_length=20)
     title = models.CharField(max_length=100)
     order = models.IntegerField()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     class Meta:
         ordering = ["order"]
 
 
-class Doc(models.LocatedModel, BasePage):
+class Doc(patterns.LocatedModel, patterns.IdentifiedMarkedModel, patterns.RelatedModel):
+    title = models.CharField(max_length=255)
+    description = models.TextField(null=True, blank=True)
+    updated = models.DateTimeField(null=True, blank=True)
     chapter = models.ForeignKey(Chapter, null=True)
     is_jsdoc = models.BooleanField(default=False)
     interactive = models.BooleanField(default=False)
@@ -61,7 +65,7 @@ class Doc(models.LocatedModel, BasePage):
             return None
         return Doc.objects.get(pk=Doc._ids[i + diff])
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     class Meta:
@@ -69,7 +73,7 @@ class Doc(models.LocatedModel, BasePage):
         ordering = ["chapter__order", "_order"]
 
 
-class Paper(models.IdentifiedRelatedModel):
+class Paper(patterns.IdentifiedRelatedModel):
     short_title = models.CharField(max_length=40)
     full_title = models.CharField(max_length=255)
     description = models.TextField()
@@ -153,3 +157,14 @@ class ScreenShot(BaseFile):
     class Meta:
         ordering = ('pk',)
 
+
+class MarkdownType(patterns.BaseMarkdownType):
+    title = models.CharField(max_length=100)
+    branch = models.CharField(max_length=50)
+
+    @classmethod
+    def get_current_filter(self, request):
+        return {'name': getattr(request, 'doc_version', '-1')}
+
+    class Meta:
+        ordering = ['-pk']

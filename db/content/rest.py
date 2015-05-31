@@ -1,14 +1,17 @@
-from wq.db.rest import app
-from .models import Page, Paper, Example, Doc, Chapter
+from wq.db import rest
+from .models import Page, Paper, Example, Doc, Chapter, MarkdownType
 from .serializers import (
-    PageSerializer, DocSerializer, PaperSerializer, ExampleSerializer
+    PageSerializer, DocSerializer, PaperSerializer,
+    ExampleSerializer, MarkdownSerializer
 )
 from .views import DocViewSet
-from wq.db.patterns.models import Identifier, Relationship, InverseRelationship
+from wq.db.patterns.models import (
+    Identifier, Markdown, Relationship, InverseRelationship
+)
 
 
-app.router.register_model(Page, url="", serializer=PageSerializer)
-app.router.register_model(Paper, url="research", serializer=PaperSerializer)
+rest.router.register_model(Page, url="", serializer=PageSerializer)
+rest.router.register_model(Paper, url="research", serializer=PaperSerializer)
 
 
 def filter_examples(qs, request):
@@ -26,24 +29,30 @@ def filter_rels(qs, request):
     )
 
 
-app.router.register_model(
+rest.router.register_model(
     Example,
     filter=filter_examples,
     serializer=ExampleSerializer,
 )
 
-app.router.register_model(
+rest.router.register_model(
     Doc,
     queryset=Doc.objects.order_by("chapter__order", "_order"),
     serializer=DocSerializer,
     viewset=DocViewSet,
 )
-app.router.register_model(Chapter)
+rest.router.register_model(Chapter)
+rest.router.register_model(
+    MarkdownType,
+    url="versions",
+    queryset=MarkdownType.objects.order_by('pk')
+)
 
-app.router.register_queryset(
+rest.router.register_queryset(
     Identifier,
     Identifier.objects.exclude(content_type__model__in=['example', 'doc']),
 )
+rest.router.register_serializer(Markdown, MarkdownSerializer)
 
-app.router.register_filter(Relationship, filter_rels)
-app.router.register_filter(InverseRelationship, filter_rels)
+rest.router.register_filter(Relationship, filter_rels)
+rest.router.register_filter(InverseRelationship, filter_rels)

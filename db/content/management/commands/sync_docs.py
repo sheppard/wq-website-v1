@@ -1,12 +1,12 @@
 from django.core.management.base import NoArgsCommand
 
-from content.models import Doc, Chapter
+from content.models import Doc, Chapter, MarkdownType
 from django.conf import settings
 from wq.app.build import collect
 
 import yaml
 import subprocess
-from StringIO import StringIO
+from io import StringIO
 
 import os
 import re
@@ -15,6 +15,15 @@ import datetime
 
 class Command(NoArgsCommand):
     def handle_noargs(self, **options):
+        os.chdir(settings.DOCS_ROOT)
+        for i, version in enumerate(MarkdownType.objects.all()):
+            subprocess.call(['git', 'checkout', version.branch])
+            subprocess.call(['git', 'pull'])
+            self.update_docs(version, i == 0)
+
+
+    def update_docs(self, version, latest):
+        print("Version %s%s" % (version, " (latest)" if latest else ""))
         for i, c in enumerate(settings.CONF['docs']):
             chapter = Chapter(
                 id=c['id'],
@@ -24,8 +33,18 @@ class Command(NoArgsCommand):
             chapter.save()
 
             docs = get_chapter_docs(c['id'])
-            for i, d in enumerate(docs):
+            for j, d in enumerate(docs):
                 doc = Doc.objects.find(d['id'])
+                markdown, is_new = doc.markdown.get_or_create(
+                    type=version
+                )
+                markdown.markdown = d['markdown']
+                markdown.summary = d.get('description', '')
+                markdown.save()
+
+                if not latest:
+                    continue
+
                 ident = doc.primary_identifier
                 ident.slug = d['id']
                 ident.save()
@@ -36,11 +55,9 @@ class Command(NoArgsCommand):
                 doc.is_jsdoc = d.get('is_jsdoc', False)
                 doc.interactive = d['interactive']
                 doc.updated = d['updated']
-                doc.markdown = d['markdown']
-                doc.incomplete = "WIP" in doc.markdown
-                doc._order = d.get('order', i)
+                doc._order = d.get('order', j)
                 doc.save()
-
+            
 
 # Load documentation files from directory
 def get_chapter_docs(chapter_id):
@@ -62,7 +79,7 @@ def get_chapter_docs(chapter_id):
         ], stdout=subprocess.PIPE, cwd=settings.DOCS_ROOT)
 
         # FIXME: handle time zone?
-        parts = pipe.stdout.read().split(" ")
+        parts = pipe.stdout.read().decode('utf-8').split(" ")
         doc['updated'] = datetime.datetime.strptime(
             parts[0] + " " + parts[1], "%Y-%m-%d %X"
         )

@@ -3,7 +3,7 @@ requirejs.config({
     'paths': {
         'wqsite': '../wqsite',
         'docs': '../docs',
-        'db': '../../'
+        'data': '../data'
     }
 });
 

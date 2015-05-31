@@ -20,25 +20,36 @@
       </div>
       {{>menu}}
       <div data-role="header" data-theme="d">
+        {{>versions}}
         <div>
-          <a href="/docs/">Docs</a> &gt;
-          <a href="/chapters/{{chapter_id}}/docs">{{chapter_label}}</a>
+          <a href="{{>doc_base}}/">Docs</a> &gt;
+          <a href="{{>doc_base}}/?chapter_id={{chapter_id}}">{{chapter_label}}</a>
         </div>
       </div>
       <div data-role="content">
-        {{{html}}}
+        {{#markdown}}
+          {{{html}}}
+          {{#not_found}}
+          <h1>{{label}}</h1>
+          <p>This doc page was not available in this version of wq.  It is, however available in the latest version,
+            {{#latest_version}}
+            <a href="/{{name}}/docs/{{id}}">{{title}}</a>
+            {{/latest_version}}
+          </p>
+          {{/not_found}}
+        {{/markdown}}
         <div class="ui-grid-a ui-responsive">
           <div class="ui-block-a">
             {{#prev_id}}
             <nobr>
-            &lArr; <a href="/docs/{{prev_id}}">{{prev_label}}</a>
+            &lArr; <a href="{{>doc_base}}/{{prev_id}}">{{prev_label}}</a>
             </nobr>
             {{/prev_id}}
           </div>
           <div class="ui-block-b" style="text-align:right">
             {{#next_id}}
             <nobr>
-            <a href="/docs/{{next_id}}">{{next_label}}</a> &rArr;
+            <a href="{{>doc_base}}/{{next_id}}">{{next_label}}</a> &rArr;
             </nobr>
             {{/next_id}}
           </div>
