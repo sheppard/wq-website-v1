@@ -18,10 +18,11 @@ md.postProcess = function(html) {
         'rel="external" $1'
     );
     if (latest_version) {
-        html = html.replace(
-            /(https:\/\/github.com\/[^"]+\/blob\/)master/g,
-            "$1" + latest_version.branch
-        );
+        ['app', 'db', 'io'].forEach(function(mod) {
+            var url = "https://github.com/wq/wq." + mod + "/blob/";
+            var re = new RegExp(url + "master", 'g');
+            html = html.replace(re, url + latest_version[mod + '_branch']);
+        });
         html = html.replace(
             /http[s]?:\/\/wq.io\/docs/g,
             "https://wq.io/" + latest_version.name + "/docs"
@@ -46,11 +47,8 @@ var latest_version = null, versions = [];
 ds.getList({'url': 'versions'}, function(list) {
     versions = [];
     list.forEach(function(v) {
-        versions.push({
-            'name': v.name,
-            'title': v.title,
-            'branch': v.branch
-        });
+        delete v.id;
+        versions.push(v);
     });
     latest_version = versions[versions.length - 1];
     latest_version.current = true;

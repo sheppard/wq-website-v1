@@ -12,6 +12,7 @@ SUFFIX = {
     3: "rd",
 }
 
+
 def update_links(html, version=None):
     html = re.sub(
         r'(<\/h1>\s*<p><a) (href="https:\/\/github.com\/[^"]+\/blob)',
@@ -30,11 +31,11 @@ def update_links(html, version=None):
         html
     )
     if version:
-        html = re.sub(
-            r'(https:\/\/github.com\/[^"]+\/blob\/)master',
-            r'\1' + version.branch,
-            html
-        )
+        for mod in ('app', 'db', 'io'):
+            url =  "https://github.com/wq/wq.%s/blob/" % mod
+            branch = getattr(version, mod + '_branch')
+            html = html.replace(url + "master", url + branch) 
+
         html = re.sub(
             r'https?:\/\/wq.io\/(docs\/[^"]+)',
             r'https://wq.io/' + version.name  + r'/\1',
