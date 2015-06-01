@@ -160,6 +160,7 @@ class ScreenShot(BaseFile):
 
 class MarkdownType(patterns.BaseMarkdownType):
     title = models.CharField(max_length=100)
+    doc_branch = models.CharField(max_length=50)
     app_branch = models.CharField(max_length=50)
     db_branch = models.CharField(max_length=50)
     io_branch = models.CharField(max_length=50)

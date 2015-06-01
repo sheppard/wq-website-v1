@@ -17,7 +17,7 @@ class Command(NoArgsCommand):
     def handle_noargs(self, **options):
         os.chdir(settings.DOCS_ROOT)
         for i, version in enumerate(MarkdownType.objects.all()):
-            subprocess.call(['git', 'checkout', version.branch])
+            subprocess.call(['git', 'checkout', version.doc_branch])
             subprocess.call(['git', 'pull'])
             self.update_docs(version, i == 0)
 

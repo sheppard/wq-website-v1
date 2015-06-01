@@ -40,6 +40,7 @@ rest.router.register_model(
     queryset=Doc.objects.order_by("chapter__order", "_order"),
     serializer=DocSerializer,
     viewset=DocViewSet,
+    per_page=1000,
 )
 rest.router.register_model(Chapter)
 rest.router.register_model(
