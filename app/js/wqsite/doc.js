@@ -1,5 +1,5 @@
-define(["jquery.mobile", "wq/pages", "wq/store"],
-function(jqm, pages, ds) {
+define(["jquery.mobile", "wq/router", "wq/app"],
+function(jqm, router, app) {
 
 // Custom scripting for doc pages
 function _showItem(match, ui, params, hash, evt, $page) {
@@ -7,8 +7,8 @@ function _showItem(match, ui, params, hash, evt, $page) {
 }
 
 function _loadInteraction(docid, $page) {
-    ds.getList({'url': 'docs'}, function(list) {
-        _execInteraction(list.find(docid), $page);
+    app.models.doc.find(docid).then(function(doc) {
+        _execInteraction(doc, $page);
     });
 }
 
@@ -30,7 +30,7 @@ function _execInteraction(info, $page) {
 
 // Initialize URL routes
 function init() {
-    pages.addRoute('([^/]*)/docs/(.+)','s', _showItem);
+    router.addRoute('([^/]*)/docs/(.+)','s', _showItem);
 }
 
 return {

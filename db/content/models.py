@@ -41,6 +41,7 @@ class Doc(patterns.LocatedModel, patterns.IdentifiedMarkedModel, patterns.Relate
     is_jsdoc = models.BooleanField(default=False)
     interactive = models.BooleanField(default=False)
     incomplete = models.BooleanField(default=False)
+    indent = models.BooleanField(default=False)
     image = models.TextField(max_length=255, null=True, blank=True)
 
     @property

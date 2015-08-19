@@ -9,7 +9,8 @@ class DocRedirectView(views.SimpleView):
     template_name = "doc_detail.html"
 
     def get(self, request, doc=None):
-        doc = doc.replace(".js", "-js")
+        if doc.endswith('.js'):
+            doc = doc.replace(".js", "-js")
         version = MarkdownType.objects.all()[0]
         response = Response({})
         response['Location'] = "/%s/docs/%s" % (version.name, doc)

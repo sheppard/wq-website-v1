@@ -6,6 +6,11 @@ set -e
 # Dump wq configuration object to file
 db/manage.py dump_config --format amd > app/js/data/config.js
 
+cd wq;
+git checkout master;
+git pull;
+cd ../;
+
 # Build javascript with wq.app
 cd app;
 wq build $1;

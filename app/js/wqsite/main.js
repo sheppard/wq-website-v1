@@ -1,12 +1,56 @@
-define(["wq/app", "wq/map", "wq/pages", "wq/store", "wq/markdown", "wq/template",
-        "./config", "data/templates", "./doc", "./example"],
-function(app, map, pages, ds, md, tmpl, config, templates, doc, example) {
+define(["wq/app", "wq/map", "wq/photos", "wq/router", "wq/markdown",
+        "./config", "./doc", "./example"],
+function(app, map, photos, router, md, config, doc, example) {
+
+var latest_version = null, versions = [];
 
 // Initialize wq.app
-app.init(config, templates);
-map.init(config.map);
-md.init();
-md.postProcess = function(html) {
+app.use(map);
+app.use(photos);
+app.use(example);
+
+app.init(config).then(function() {
+    md.init();
+    md.postProcess = _postProcess;
+    doc.init();
+    router.register('<slug>/docs/<slug>', _renderDoc);
+    router.register('<slug>/docs/', _renderDoc);
+    app.jqmInit();
+    app.prefetchAll();
+
+    app.models.markdowntype.load().then(function(data) {
+        versions = [];
+        data.list.forEach(function(v) {
+            delete v.id;
+            versions.push(v);
+        });
+        latest_version = versions[versions.length - 1];
+        latest_version.current = true;
+        config.menu[2].id = latest_version.name + '/' + config.menu[2].id;
+    });
+});
+
+function _renderDoc(match, ui, params) {
+    if (match[1] == latest_version.name) {
+        // Latest version docs are always cached locally
+        var url = match[0].replace(/^\//, "").split('?')[0];
+        var context = {
+            'doc_version': latest_version.name,
+        };
+        if (!match[2]) {
+            context['versions'] = versions;
+        }
+        app.go('doc', ui, params, match[2] || false, false, url, context);
+    } else {
+        // All other versions are rendered on server
+        var options = ui.options || {};
+        options.wqSkip = true;
+        console.log(match[0])
+        $.mobile.changePage(match[0], options);
+    }
+}
+
+function _postProcess(html) {
     html = html.replace(
         /(<\/h1>\s*<p><a) (href="https:\/\/github.com\/[^"]+\/blob)/,
         '$1 class="github-file" $2'
@@ -29,50 +73,6 @@ md.postProcess = function(html) {
         );
     }
     return html;
-}
-doc.init();
-example.init();
-pages.register('<slug>/docs/<slug>', _renderDoc);
-pages.register('<slug>/docs/', _renderDoc);
-app.jqmInit();
-
-// Prefetch important data
-['', 'research', 'identifiers', 'relationships', 'examples', 'chapters',
- 'docs', 'markdown', 'versions'].forEach(prefetch);
-function prefetch(url) {
-    ds.prefetch({'url': url});
-}
-
-var latest_version = null, versions = [];
-ds.getList({'url': 'versions'}, function(list) {
-    versions = [];
-    list.forEach(function(v) {
-        delete v.id;
-        versions.push(v);
-    });
-    latest_version = versions[versions.length - 1];
-    latest_version.current = true;
-    config.menu[2].id = latest_version.name + '/' + config.menu[2].id;
-});
-
-function _renderDoc(match, ui, params) {
-    if (match[1] == latest_version.name) {
-        // Latest version docs are always cached locally
-        var url = match[0].replace(/^\//, "").split('?')[0];
-        var context = {
-            'doc_version': latest_version.name,
-        };
-        if (!match[2]) {
-            context['versions'] = versions;
-        }
-        app.go('doc', ui, params, match[2] || false, false, url, context);
-    } else {
-        // All other versions are rendered on server
-        var options = ui.options || {};
-        options.wqSkip = true;
-        console.log(match[0])
-        $.mobile.changePage(match[0], options);
-    }
 }
 
 });

@@ -54,6 +54,7 @@ class Command(NoArgsCommand):
                 doc.image = d.get('image', None)
                 doc.is_jsdoc = d.get('is_jsdoc', False)
                 doc.interactive = d['interactive']
+                doc.indent = d.get('indent', False)
                 doc.updated = d['updated']
                 doc._order = d.get('order', j)
                 doc.save()

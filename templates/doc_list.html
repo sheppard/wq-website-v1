@@ -30,6 +30,7 @@
           <li {{#incomplete}} class="incomplete" data-icon="minus"{{/incomplete}}
               data-filtertext="{{type_id}} {{id}} {{type_label}} {{label}}">
             <a href="{{#doc_version}}/{{doc_version}}{{/doc_version}}/docs/{{id}}">
+              {{#indent}}&nbsp; &nbsp;{{/indent}}
               {{label}}
             </a>
           </li>

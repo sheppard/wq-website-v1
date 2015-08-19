@@ -24,6 +24,7 @@ urlpatterns = patterns('',
 
     # Versioned documentation
     url(r'^docs/(?P<doc>[^\/]+)/?$', DocRedirectView.as_view()),
+    url(r'^([0-9.]+)/docs/(?P<primary_identifiers__slug>[^\/]+)\.(?P<format>[^\/]+)$', doc_detail),
     url(r'^([0-9.]+)/docs/(?P<primary_identifiers__slug>[^\/]+)/?$', doc_detail),
     url(r'^([0-9.]+)/docs/?$', doc_list),
 

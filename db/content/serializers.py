@@ -73,7 +73,7 @@ class MarkdownSerializer(patterns.MarkdownSerializer):
         return update_links(instance.html, instance.type)
 
 
-class DocSerializer(patterns.IdentifiedMarkedModelSerializer):
+class DocSerializer(patterns.IdentifiedMarkedModelSerializer, patterns.LocatedModelSerializer):
     next_id = serializers.SerializerMethodField()
     next_label = serializers.SerializerMethodField()
     prev_id = serializers.SerializerMethodField()
