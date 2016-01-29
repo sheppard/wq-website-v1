@@ -4,7 +4,7 @@ from wq.db.patterns import serializers as patterns
 import markdown
 import re
 from django.conf import settings
-from .models import ScreenShot
+from .models import ScreenShot, Link
 
 SUFFIX = {
     1: "st",
@@ -120,15 +120,25 @@ class DocSerializer(patterns.IdentifiedMarkedModelSerializer, patterns.LocatedMo
             'title': md.type.title
         } for md in instance.markdown.order_by('type_id')]
 
+
 class ScreenShotSerializer(ModelSerializer):
     class Meta:
         model = ScreenShot
+
+
+class LinkSerializer(ModelSerializer):
+    icon = serializers.ReadOnlyField()
+
+    class Meta:
+        model = Link
+        fields = ['url', 'icon']
 
 
 class ExampleSerializer(PageSerializer):
     modules = serializers.ReadOnlyField()
     full_api = serializers.ReadOnlyField()
     screenshots = ScreenShotSerializer(many=True, source="screenshot_set")
+    links = LinkSerializer(many=True, source="link_set")
 
 
 class PaperSerializer(patterns.IdentifiedModelSerializer):

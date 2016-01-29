@@ -43,32 +43,29 @@
         <h1 class="example">
           {{label}}
         </h1>
+        <p class="tags">
+          {{#tags_label}}
+          <span class="tag">{{.}}</span>
+          {{/tags_label}}
+        </p>
         {{{html}}}
         <div class="ui-grid-a ui-responsive">
           <div class="ui-block-a">
             <ul data-role="listview" data-inset="true" data-theme="c" data-divider-theme="a">
               <li data-role="list-divider">Links</li>
-              {{#app_url}}
+              {{#links}}
               <li>
-                <a href="{{app_url}}" target="_blank">
-                  {{title}} App
+                <a href="{{url}}" target="_blank">
+                  {{#icon}}
+                  <img src="/media/{{icon}}" class='ui-li-icon'>
+                  {{/icon}}
+                  {{^icon}}
+                  <img src="/images/empty.png" class='ui-li-icon'>
+                  {{/icon}}
+                  {{label}}
                 </a>
               </li>
-              {{/app_url}}
-              {{#home_url}} 
-              <li>
-                <a href="{{home_url}}" target="_blank">
-                  Project Homepage
-                </a>
-              </li>
-              {{/home_url}}
-              {{#repo_url}}
-              <li>
-                <a href="{{repo_url}}" target="_blank">
-                  Source on GitHub
-                </a>
-              </li>
-              {{/repo_url}}
+              {{/links}}
             </ul>
           </p>
         </div>

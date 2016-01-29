@@ -127,13 +127,12 @@ class PDF(File):
 
 
 class Example(BasePage):
-    home_url = models.CharField(max_length=255, null=True, blank=True)
-    repo_url = models.CharField(max_length=255, null=True, blank=True)
-    app_url = models.CharField(max_length=255, null=True, blank=True)
     icon = models.ImageField(null=True, blank=True, upload_to="icons")
 
     developer = models.ForeignKey("auth.User", null=True, blank=True)
     public = models.BooleanField()
+
+    tags = models.ManyToManyField("Tag")
 
     @cached_property
     def modules(self):
@@ -148,6 +147,54 @@ class Example(BasePage):
     def full_api(self):
         return ("wq.db" in self.modules and "wq.app" in self.modules)
 
+
+class LinkType(models.Model):
+    name = models.CharField(max_length=255)
+    icon = models.ImageField(null=True, blank=True, upload_to="icons")
+     
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ('pk',)
+
+
+class Link(models.Model):
+    example = models.ForeignKey(Example)
+    type = models.ForeignKey(LinkType)
+    url = models.URLField()
+
+    @property
+    def icon(self):
+        if self.type.icon:
+            return self.type.icon.name
+        return None
+
+    def __str__(self):
+        return self.type.name
+
+    class Meta:
+        ordering = ('type_id',)
+
+
+class TagType(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ('pk',)
+
+class Tag(models.Model):
+    type = models.ForeignKey(TagType)
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return "%s: %s" % (self.type.name, self.name)
+
+    class Meta:
+        ordering = ('type_id',)
 
 class ScreenShot(BaseFile):
     example = models.ForeignKey(Example)
