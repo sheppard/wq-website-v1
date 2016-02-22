@@ -1,8 +1,8 @@
 from wq.db import rest
-from .models import Page, Paper, Example, Doc, Chapter, MarkdownType
+from .models import Page, Paper, Project, Doc, Chapter, MarkdownType
 from .serializers import (
     PageSerializer, DocSerializer, PaperSerializer,
-    ExampleSerializer, MarkdownSerializer
+    ProjectSerializer, MarkdownSerializer
 )
 from .views import DocViewSet
 from wq.db.patterns.models import (
@@ -14,25 +14,25 @@ rest.router.register_model(Page, url="", serializer=PageSerializer)
 rest.router.register_model(Paper, url="research", serializer=PaperSerializer)
 
 
-def filter_examples(qs, request):
+def filter_projects(qs, request):
     if request.user.is_authenticated():
         return qs.all()
     else:
         return qs.filter(public=True)
 
 def filter_rels(qs, request):
-    examples = filter_examples(Example.objects.all(), request)
-    example_ids = examples.values_list('pk', flat=True)
+    projects = filter_projects(Project.objects.all(), request)
+    project_ids = projects.values_list('pk', flat=True)
     return (
-        qs.exclude(to_content_type__model="example") |
-        qs.filter(to_content_type__model="example", to_object_id__in=example_ids)
+        qs.exclude(to_content_type__model="project") |
+        qs.filter(to_content_type__model="project", to_object_id__in=project_ids)
     )
 
 
 rest.router.register_model(
-    Example,
-    filter=filter_examples,
-    serializer=ExampleSerializer,
+    Project,
+    filter=filter_projects,
+    serializer=ProjectSerializer,
 )
 
 rest.router.register_model(
@@ -51,7 +51,7 @@ rest.router.register_model(
 
 rest.router.register_queryset(
     Identifier,
-    Identifier.objects.exclude(content_type__model__in=['example', 'doc']),
+    Identifier.objects.exclude(content_type__model__in=['project', 'doc']),
 )
 rest.router.register_serializer(Markdown, MarkdownSerializer)
 

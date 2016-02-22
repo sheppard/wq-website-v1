@@ -42,6 +42,7 @@ class Doc(patterns.LocatedModel, patterns.IdentifiedMarkedModel, patterns.Relate
     interactive = models.BooleanField(default=False)
     incomplete = models.BooleanField(default=False)
     indent = models.BooleanField(default=False)
+    referral = models.BooleanField(default=False)
     image = models.TextField(max_length=255, null=True, blank=True)
 
     @property
@@ -126,7 +127,7 @@ class PDF(File):
         proxy = True
 
 
-class Example(BasePage):
+class Project(BasePage):
     icon = models.ImageField(null=True, blank=True, upload_to="icons")
 
     developer = models.ForeignKey("auth.User", null=True, blank=True)
@@ -160,7 +161,7 @@ class LinkType(models.Model):
 
 
 class Link(models.Model):
-    example = models.ForeignKey(Example)
+    project = models.ForeignKey(Project)
     type = models.ForeignKey(LinkType)
     url = models.URLField()
 
@@ -197,7 +198,7 @@ class Tag(models.Model):
         ordering = ('type_id',)
 
 class ScreenShot(BaseFile):
-    example = models.ForeignKey(Example)
+    project = models.ForeignKey(Project)
 
     def get_directory(self):
         return "screenshots"
@@ -212,10 +213,15 @@ class MarkdownType(patterns.BaseMarkdownType):
     app_branch = models.CharField(max_length=50)
     db_branch = models.CharField(max_length=50)
     io_branch = models.CharField(max_length=50)
+    current = models.BooleanField(default=False)
 
     @classmethod
     def get_current_filter(self, request):
         return {'name': getattr(request, 'doc_version', '-1')}
+
+    @classmethod
+    def get_default(cls):
+        return cls.objects.get(current=True)
 
     class Meta:
         ordering = ['-pk']

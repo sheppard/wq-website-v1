@@ -3,7 +3,7 @@ from wq.db.patterns import admin as patterns
 from wq.db.patterns.models import RelationshipType, Authority
 from wq.db.contrib.files.admin import FileAdmin
 
-from .models import Page, Paper, PDF, Example, Doc, Chapter, ScreenShot, Link, LinkType, Tag, TagType
+from .models import Page, Paper, PDF, Project, Doc, Chapter, ScreenShot, Link, LinkType, Tag, TagType, MarkdownType
 
 
 class ScreenShotInline(admin.TabularInline):
@@ -12,7 +12,7 @@ class ScreenShotInline(admin.TabularInline):
 class LinkInline(admin.TabularInline):
     model = Link
 
-class ExampleAdmin(patterns.IdentifiedModelAdmin):
+class ProjectAdmin(patterns.IdentifiedModelAdmin):
     list_filter = (
         "public",
     )
@@ -50,8 +50,9 @@ admin.site.register(Paper, patterns.IdentifiedModelAdmin)
 admin.site.register(PDF, FileAdmin)
 admin.site.register(RelationshipType)
 admin.site.register(Authority, patterns.AuthorityAdmin)
-admin.site.register(Example, ExampleAdmin)
+admin.site.register(Project, ProjectAdmin)
 admin.site.register(Doc, DocAdmin)
 admin.site.register(Chapter)
 admin.site.register(TagType, TagTypeAdmin)
 admin.site.register(LinkType)
+admin.site.register(MarkdownType)

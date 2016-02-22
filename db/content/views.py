@@ -11,7 +11,7 @@ class DocRedirectView(views.SimpleView):
     def get(self, request, doc=None):
         if doc.endswith('.js'):
             doc = doc.replace(".js", "-js")
-        version = MarkdownType.objects.all()[0]
+        version = MarkdownType.get_default()
         response = Response({})
         response['Location'] = "/%s/docs/%s" % (version.name, doc)
         response.status_code = status.HTTP_302_FOUND
@@ -30,7 +30,7 @@ class DocViewSet(views.ModelViewSet):
         response = super(DocViewSet, self).list(request, *args, **kwargs)
         chapter = None
         rows = []
-        current_version = MarkdownType.objects.all()[0]
+        current_version = MarkdownType.get_default()
         doc_version = getattr(
             request, 'doc_version', current_version.name,
         )

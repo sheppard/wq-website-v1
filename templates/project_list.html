@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Examples</title>
+    <title>Projects</title>
     {{>head}}
   </head>
   <body>
     <div data-role="page" class="ui-page">
       <div data-role="header">
         {{>home}}
-        <h3>Examples</h3>
+        <h3>Projects</h3>
       </div>
       {{>menu}}
       <div data-role="content">
@@ -25,9 +25,9 @@
         <ul data-role="listview" 
           data-theme="c" data-divider-theme="a" data-filter="true"
           data-filter-placeholder="e.g. android, open source, citizen science">
-          <li data-role="list-divider">Example Projects</li>
+          <li data-role="list-divider">Projects &amp; Demos</li>
         {{#list}}
-          <li data-filtertext="{{#links}}{{icon}} {{label}} {{/links}} {{icon}} {{title}} {{description}} {{#tags_label}}{{.}} {{/tags_label}}"><a href="/examples/{{id}}">
+          <li data-filtertext="{{#links}}{{icon}} {{label}} {{/links}} {{icon}} {{title}} {{description}} {{#tags_label}}{{.}} {{/tags_label}}"><a href="/projects/{{id}}">
             {{#icon}}
             <img src="/media/{{icon}}">
             {{/icon}}

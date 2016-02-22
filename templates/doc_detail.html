@@ -28,6 +28,22 @@
       </div>
       <div data-role="content">
         {{#markdown}}
+          {{#future}}
+          <blockquote><p><i>
+            <b>Note:</b> This documentation is for wq {{type_label}}, which has not yet been released.
+          </i></p></blockquote>
+          {{/future}}
+          {{#referral}}
+          <blockquote>
+            <p>
+              If you are starting a new self-hosted project, you may be interested in
+              <a href="https://www.digitalocean.com/">Digital Ocean</a>,
+              which provides dedicated Linux virtual machines starting at $5 a month.  Use
+              <a href="{{>referral_link}}">this referral link</a>
+              to get a $10 starting credit - which can equate to getting your first two months free!
+            </p>
+          </blockquote>
+          {{/referral}}
           {{{html}}}
           {{#not_found}}
           <h1>{{label}}</h1>

@@ -21,11 +21,12 @@ app.init(config).then(function() {
     app.models.markdowntype.load().then(function(data) {
         versions = [];
         data.list.forEach(function(v) {
+            if (v.current) {
+                latest_version = v;
+            }
             delete v.id;
             versions.push(v);
         });
-        latest_version = versions[versions.length - 1];
-        latest_version.current = true;
         config.menu[2].id = latest_version.name + '/' + config.menu[2].id;
     });
 });

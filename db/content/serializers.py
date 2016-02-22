@@ -84,18 +84,24 @@ class DocSerializer(patterns.IdentifiedMarkedModelSerializer, patterns.LocatedMo
 
     def to_representation(self, obj):
         data = super().to_representation(obj)
+        stable_version = {}
+        for v in data['versions']:
+            if v['stable']:
+                stable_version = v
         if 'markdown' in data:
             if len(data['markdown']) == 0:
                 data['markdown'] = [{
                     'not_found': True,
-                    'latest_version': data['versions'][-1],
+                    'latest_version': stable_version,
                 }]
                 return data
             for v in data['versions']:
                 if v['name'] == data['markdown'][0]['type_label']:
                     v['current'] = True
+                    if v['name'] > stable_version['name']:
+                        data['future'] = True
         else:
-            data['versions'][-1]['current'] = True
+            stable_version['current'] = True
         return data
 
     def get_next_id(self, instance):
@@ -117,7 +123,8 @@ class DocSerializer(patterns.IdentifiedMarkedModelSerializer, patterns.LocatedMo
     def get_versions(self, instance):
         return [{
             'name': md.type.name,
-            'title': md.type.title
+            'title': md.type.title,
+            'stable': md.type.current,
         } for md in instance.markdown.order_by('type_id')]
 
 
@@ -134,7 +141,7 @@ class LinkSerializer(ModelSerializer):
         fields = ['url', 'icon']
 
 
-class ExampleSerializer(PageSerializer):
+class ProjectSerializer(PageSerializer):
     modules = serializers.ReadOnlyField()
     full_api = serializers.ReadOnlyField()
     screenshots = ScreenShotSerializer(many=True, source="screenshot_set")
