@@ -18,6 +18,13 @@ app.init(config).then(function() {
     app.jqmInit();
     app.prefetchAll();
 
+    var projectFilter = app.models.project.filterPage;
+    app.models.project.filterPage = function(filter) {
+        if (filter._) {
+            delete filter._;
+        }
+        return projectFilter(filter);
+    }
     app.models.markdowntype.load().then(function(data) {
         versions = [];
         data.list.forEach(function(v) {

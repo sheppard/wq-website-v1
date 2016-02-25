@@ -54,6 +54,7 @@ rest.router.register_queryset(
     Identifier.objects.exclude(content_type__model__in=['project', 'doc']),
 )
 rest.router.register_serializer(Markdown, MarkdownSerializer)
+rest.router.update_config(Markdown, per_page=1000)
 
 rest.router.register_filter(Relationship, filter_rels)
 rest.router.register_filter(InverseRelationship, filter_rels)

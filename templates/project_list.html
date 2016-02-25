@@ -12,16 +12,36 @@
       </div>
       {{>menu}}
       <div data-role="content">
-        <center>
-          Below is a select sample of sites and apps using all or parts of wq.
-          <br>
+        <div data-role="controlgroup" data-mini="true" data-type="horizontal" data-theme="b" style="float:right;">
+          {{^router_info.params._}}
+          <a href="/projects/" class="ui-btn ui-corner-all ui-btn-active">Projects</a>
+          <a href="/projects/?_=screenshots" class="ui-btn ui-corner-all">Screenshots</a>
+          {{/router_info.params._}}
+          {{#router_info.params._}}
+          <a href="/projects/" class="ui-btn ui-corner-all">Projects</a>
+          <a href="/projects/?_=screenshots" class="ui-btn ui-corner-all ui-btn-active">Screenshots</a>
+          {{/router_info.params._}}
+        </div>
+        <p>
+          These are some examples of the sites and apps powered by wq.
           Open-source projects are also listed at
           <a href="https://github.com/powered-by-wq" rel="external">
             github.com/powered-by-wq
           </a>.
-          <br>
-          <a href="/community">Contact Us</a> to have your wq-powered site listed!
-        </center>
+          <a href="/community">Contact Us</a> to have your project listed!
+        </p>
+        {{#router_info.params._}}
+        <div class="screenshots">
+          {{#list}}
+          <a href="/projects/{{id}}">
+          {{#screenshots}}
+            <img src="/media/240/{{file}}" alt="{{title}} - {{name}}" title="{{title}} - {{name}}">
+          {{/screenshots}}
+          </a>
+          {{/list}}
+        </div>
+        {{/router_info.params._}}
+        {{^router_info.params._}}
         <ul data-role="listview" 
           data-theme="c" data-divider-theme="a" data-filter="true"
           data-filter-placeholder="e.g. android, open source, citizen science">
@@ -50,6 +70,7 @@
           </a></li>
         {{/list}}
         </ul>
+        {{/router_info.params._}}
       </div>
       <div class="ui-content"></div>
 {{>footer}}

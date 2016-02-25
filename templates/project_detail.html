@@ -70,10 +70,14 @@
           </p>
         </div>
      </div>
+     <h3>Screenshots</h3>
      <div class="screenshots">
+       {{^screenshots}}
+       <p>No screenshots yet.</p>
+       {{/screenshots}}
        {{#screenshots}}
        <!-- FIXME: move some of this to JS/CSS -->
-       <img src="/media/240/{{file}}" style="cursor:pointer" onclick="$('#popup-{{id}}').popup('open');">
+       <img src="/media/240/{{file}}" alt="{{name}}" title="{{name}}" style="cursor:pointer" onclick="$('#popup-{{id}}').popup('open');">
        <div data-role="popup" id="popup-{{id}}" data-overlay-theme="a">
          <img src="/media/{{file}}" style="cursor:pointer;" onclick="$('#popup-{{id}}').popup('close');">
        </div>
