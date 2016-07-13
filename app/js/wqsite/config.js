@@ -19,9 +19,8 @@ config.transitions = {
 
 
 // Attribution (https://gist.github.com/mourner/1804938)
-var osmAttr = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>';
-var aerialAttr = 'Imagery &copy; NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency';
-var mqTilesAttr = 'Tiles &copy; <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="https://developer.mapquest.com/content/osm/mq_logo.png" />';
+var attrib = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>';
+var mapbox = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}';
 
 // Map defaults
 config.map = {
@@ -30,11 +29,19 @@ config.map = {
         [45.18, -93.5]
     ],
     'basemaps': [{
-        'name': 'Mapquest OSM',
+        'name': 'MapBox Streets',
         'type': 'tile',
-        'url': 'https://otile{s}-s.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png',
-        'subdomains': '1234',
-        'attribution': osmAttr + ', ' + mqTilesAttr 
+        'url': mapbox,
+        'id': 'mapbox.streets',
+        'accessToken': dbconfig.mapbox_token,
+        'attribution': attrib
+    }, {
+        'name': 'MapBox Satellite',
+        'type': 'tile',
+        'url': mapbox,
+        'id': 'mapbox.satellite',
+        'accessToken': dbconfig.mapbox_token,
+        'attribution': attrib
     }]
 };
 

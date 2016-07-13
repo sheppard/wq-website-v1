@@ -153,3 +153,8 @@ class PaperSerializer(patterns.IdentifiedModelSerializer):
     doi = serializers.ReadOnlyField()
     citation_date = serializers.ReadOnlyField()
     author_list = serializers.ReadOnlyField()
+    pdf = serializers.SerializerMethodField()
+
+    def get_pdf(self, instance):
+        pdf = instance.relationships.first()
+        return str(pdf.right)

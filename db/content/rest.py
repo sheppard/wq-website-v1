@@ -8,6 +8,7 @@ from .views import DocViewSet
 from wq.db.patterns.models import (
     Identifier, Markdown, Relationship, InverseRelationship
 )
+from django.conf import settings
 
 
 rest.router.register_model(Page, url="", serializer=PageSerializer)
@@ -58,3 +59,7 @@ rest.router.update_config(Markdown, per_page=1000)
 
 rest.router.register_filter(Relationship, filter_rels)
 rest.router.register_filter(InverseRelationship, filter_rels)
+
+rest.router.set_extra_config(
+    mapbox_token=settings.MAPBOX_TOKEN,
+)
