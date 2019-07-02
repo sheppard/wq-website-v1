@@ -55,6 +55,7 @@ class Command(NoArgsCommand):
                 doc.is_jsdoc = d.get('is_jsdoc', False)
                 doc.interactive = d['interactive']
                 doc.indent = d.get('indent', False)
+                doc.removed = d.get('deprecated', False)
                 doc.updated = d['updated']
                 doc._order = d.get('order', j)
                 doc.save()

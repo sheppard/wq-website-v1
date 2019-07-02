@@ -17,13 +17,6 @@
       {{>menu}}
       <div data-role="content">
         <img src="/images/512/wq.png" alt="wq" class="logo">
-        <div class="github">
-          <a href="https://github.com/wq/">wq on GitHub</a><br>
-          <iframe src="//ghbtns.com/github-btn.html?user=wq&repo=wq&type=fork&count=true"
-            allowtransparency="true" frameborder="0" scrolling="0" width="85" height="20"></iframe>
-          <iframe src="//ghbtns.com/github-btn.html?user=wq&repo=wq&type=watch&count=true"
-            allowtransparency="true" frameborder="0" scrolling="0" width="85" height="20"></iframe>
-        </div>
         <p>
           <strong>wq</strong> is a modular, open source framework for building custom
           offline-capable mobile-friendly web apps for
@@ -31,25 +24,37 @@
           <strong>crowdsourcing</strong>, and
           <strong>volunteered geographic information</strong>.
         </p>
-
         <p>
-          wq has a <a href="/license">permissive license</a> and extends a number of existing 
-          open source web frameworks, including 
-          <strong>Django</strong>, 
-          <strong>jQuery Mobile</strong>,
-          and <strong>RequireJS</strong>.
+          <a href="/1.0/docs/intro">More about wq</a>
         </p>
 
+        <p>
+          wq is <a href="/license">open source</a> and extends a number of existing 
+          open source web frameworks, including 
+          <strong>Django REST Framework</strong>, 
+          <strong>jQuery Mobile</strong>, and
+          <strong>Leaflet.</strong>
+        </p>
+
+        <div class="github" style="float:right">
+          <iframe src="//ghbtns.com/github-btn.html?user=wq&repo=wq&type=fork&count=true"
+            allowtransparency="true" frameborder="0" scrolling="0" width="85" height="20"></iframe>
+          <iframe src="//ghbtns.com/github-btn.html?user=wq&repo=wq&type=watch&count=true"
+            allowtransparency="true" frameborder="0" scrolling="0" width="85" height="20"></iframe>
+        </div>
+        <p>
+          <a href="https://github.com/wq/" rel="external">Visit wq on GitHub</a>
+        </p>
+
+
         <p class="ui-content ui-corners-all highlight-box">
-           {{#list}}{{#showcase}}
-           <b>{{id}} {{latest_version}}</b> was released on {{version_date_label}}!<br>
-           <a href="/docs/setup">Install</a> &bull; <a href="https://github.com/wq/{{id}}/releases">View Release Notes</a>
-           {{/showcase}}{{/list}}
+           <b>wq 1.1.0</b> was released on July 12th, 2018!<br>
+           <a href="/1.1/docs/setup">Install</a> &bull; <a href="https://github.com/wq/wq/releases">View Release Notes</a>
         </p>
 
         <ul data-role="listview" data-theme="c" data-divider-theme="a"
             data-inset="true" style="clear:both">
-          <li data-role="list-divider">Submodules</li>
+          <li data-role="list-divider">Modules</li>
           {{#list}}
           {{#submodule}}
           <li><a href="/{{id}}">

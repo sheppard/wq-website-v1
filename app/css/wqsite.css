@@ -2,6 +2,7 @@
 @import url(lib/jquery.mobile.icons.css);
 @import url(lib/highlight.css);
 @import url(lib/leaflet.css);
+@import url(lib/leaflet.draw.css);
 @import url(themes.css);
 @import url(base.css);
 @import url(responsive.css);

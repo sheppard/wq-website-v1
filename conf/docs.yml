@@ -8,6 +8,9 @@
   id: api
   label: "API Conventions"
 - 
+  id: cli
+  label: "Command Line Reference"
+- 
   id: app
   label: "wq.app: Modules"
 - 

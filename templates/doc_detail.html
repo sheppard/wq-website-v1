@@ -30,9 +30,14 @@
         {{#markdown}}
           {{#future}}
           <blockquote><p><i>
-            <b>Note:</b> This documentation is for wq {{type_label}}, which has not yet been released.
+            <b>Note:</b> This documentation is for wq {{type_label}}, which has not yet been finalized.
           </i></p></blockquote>
           {{/future}}
+          {{#deprecated}}
+          <blockquote><p><i>
+            <b>Note:</b> wq {{type_label}} is no longer supported.  Please upgrade to version {{#latest_version}}<a href="/{{name}}/docs/{{id}}">{{title}}</a>{{/latest_version}}.
+          </i></p></blockquote>
+          {{/deprecated}}
           {{#referral}}
           <blockquote>
             <p>
@@ -47,7 +52,7 @@
           {{{html}}}
           {{#not_found}}
           <h1>{{label}}</h1>
-          <p>This doc page was not available in this version of wq.  It is, however available in the latest version,
+          <p>This doc page was not available for wq {{type_label}}.  It is, however available in the latest version,
             {{#latest_version}}
             <a href="/{{name}}/docs/{{id}}">{{title}}</a>
             {{/latest_version}}

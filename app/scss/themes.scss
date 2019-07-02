@@ -5,13 +5,18 @@
 $a-dark: mix(#4E3878, #544A63);
 $a-light: #6F519E;
 
+body.ui-overlay-a {
+   background-color: #f9f9f9;
+}
+
 @include jquery-mobile-theme(
   $theme:       a,
   $bar-bg:      $a-dark,
   $bar-text:    #fff,
   $bar-shadow:  false,
 
-  $page-shadow:  false,
+  $page-shadow: false,
+  $page-bg:     #fff,
 
   $up-bg:       $a-dark,
   $up-border:   mix($a-dark, black),

@@ -1,6 +1,6 @@
 define(["wq/app", "wq/map", "wq/photos", "wq/router", "wq/markdown",
-        "./config", "./doc", "./example"],
-function(app, map, photos, router, md, config, doc, example) {
+        "./config", "./doc", "./example", "highlight"],
+function(app, map, photos, router, md, config, doc, example, highlight) {
 
 var latest_version = null, versions = [];
 
@@ -15,6 +15,7 @@ app.init(config).then(function() {
     doc.init();
     router.register('<slug>/docs/<slug>', _renderDoc);
     router.register('<slug>/docs/', _renderDoc);
+    router.addRoute('.*.*', 's', _highlight);
     app.jqmInit();
     app.prefetchAll();
 
@@ -28,13 +29,16 @@ app.init(config).then(function() {
     app.models.markdowntype.load().then(function(data) {
         versions = [];
         data.list.forEach(function(v) {
+            if (v.deprecated) {
+                return;
+            }
             if (v.current) {
                 latest_version = v;
             }
             delete v.id;
             versions.push(v);
         });
-        config.menu[2].id = latest_version.name + '/' + config.menu[2].id;
+        config.menu[0].id = latest_version.name + '/' + config.menu[0].id;
     });
 });
 
@@ -81,6 +85,12 @@ function _postProcess(html) {
         );
     }
     return html;
+}
+
+function _highlight() {
+    $('pre code:not(.hljs)').each(function(i, el) {
+        highlight.highlightBlock(el);
+    });
 }
 
 });

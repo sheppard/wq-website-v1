@@ -90,16 +90,28 @@ class DocSerializer(patterns.IdentifiedMarkedModelSerializer, patterns.LocatedMo
                 stable_version = v
         if 'markdown' in data:
             if len(data['markdown']) == 0:
+                req = self.context.get('request', None)
+                doc_version = (
+                     getattr(req, 'doc_version', None)
+                     or stable_version['name']
+                )
                 data['markdown'] = [{
                     'not_found': True,
+                    'type_label': doc_version,
                     'latest_version': stable_version,
                 }]
                 return data
+            found = False
             for v in data['versions']:
                 if v['name'] == data['markdown'][0]['type_label']:
+                    found = True
                     v['current'] = True
                     if v['name'] > stable_version['name']:
                         data['future'] = True
+            if not found:
+                data['deprecated'] = True
+                data['markdown'][0].pop('id')
+                data['latest_version'] = stable_version
         else:
             stable_version['current'] = True
         return data
@@ -125,7 +137,9 @@ class DocSerializer(patterns.IdentifiedMarkedModelSerializer, patterns.LocatedMo
             'name': md.type.name,
             'title': md.type.title,
             'stable': md.type.current,
-        } for md in instance.markdown.order_by('type_id')]
+        } for md in instance.markdown.filter(
+            type__deprecated=False
+        ).order_by('type_id')]
 
 
 class ScreenShotSerializer(ModelSerializer):

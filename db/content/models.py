@@ -44,6 +44,7 @@ class Doc(patterns.LocatedModel, patterns.IdentifiedMarkedModel, patterns.Relate
     indent = models.BooleanField(default=False)
     referral = models.BooleanField(default=False)
     image = models.TextField(max_length=255, null=True, blank=True)
+    removed = models.BooleanField(default=False)
 
     @property
     def next(self):
@@ -57,15 +58,22 @@ class Doc(patterns.LocatedModel, patterns.IdentifiedMarkedModel, patterns.Relate
         if not hasattr(Doc, "_id_index"):
             Doc._id_index = {}
             Doc._ids = {}
-            qs = Doc.objects.order_by("chapter__order", "_order")
+            qs = Doc.objects.exclude(
+                removed=True
+            ).order_by("chapter__order", "_order")
             for i, doc in enumerate(qs):
                 Doc._id_index[doc.id] = i
                 Doc._ids[i] = doc.id
 
+        if self.id not in Doc._id_index:
+            return None
         i = Doc._id_index[self.id]
         if i + diff < 0 or i + diff == len(Doc._ids):
             return None
-        return Doc.objects.get(pk=Doc._ids[i + diff])
+        if i + diff in Doc._ids:
+            return Doc.objects.get(pk=Doc._ids[i + diff])
+        else:
+            return None
 
     def __str__(self):
         return self.title
@@ -214,6 +222,7 @@ class MarkdownType(patterns.BaseMarkdownType):
     db_branch = models.CharField(max_length=50)
     io_branch = models.CharField(max_length=50)
     current = models.BooleanField(default=False)
+    deprecated = models.BooleanField(default=False)
 
     @classmethod
     def get_current_filter(self, request):

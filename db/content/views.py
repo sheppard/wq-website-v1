@@ -39,7 +39,9 @@ class DocViewSet(views.ModelViewSet):
             'name': md.name,
             'title': md.title,
             'current': md.name == doc_version
-        } for md in MarkdownType.objects.order_by('pk')]
+        } for md in MarkdownType.objects.filter(
+            deprecated=False,
+        ).order_by('pk')]
         for row in response.data['list']:
             if row['chapter_id'] != chapter:
                 rows.append({

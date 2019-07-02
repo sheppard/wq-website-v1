@@ -26,7 +26,7 @@
           {{#section}}
           <li data-role="list-divider">{{label}}</li>
           {{/section}}
-          {{^section}}
+          {{^section}}{{^removed}}
           <li {{#incomplete}} class="incomplete" data-icon="minus"{{/incomplete}}
               data-filtertext="{{type_id}} {{id}} {{type_label}} {{label}}">
             <a href="{{#doc_version}}/{{doc_version}}{{/doc_version}}/docs/{{id}}">
@@ -34,7 +34,7 @@
               {{label}}
             </a>
           </li>
-          {{/section}}
+          {{/removed}}{{/section}}
         {{/list}}
         </ul>
         <div class="ui-content"></div>

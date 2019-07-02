@@ -1,7 +1,7 @@
 from wq.db import rest
-from .models import Page, Paper, Project, Doc, Chapter, MarkdownType
+from .models import Page, Project, Doc, Chapter, MarkdownType
 from .serializers import (
-    PageSerializer, DocSerializer, PaperSerializer,
+    PageSerializer, DocSerializer,
     ProjectSerializer, MarkdownSerializer
 )
 from .views import DocViewSet
@@ -12,7 +12,6 @@ from django.conf import settings
 
 
 rest.router.register_model(Page, url="", serializer=PageSerializer)
-rest.router.register_model(Paper, url="research", serializer=PaperSerializer)
 
 
 def filter_projects(qs, request):
