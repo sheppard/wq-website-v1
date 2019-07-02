@@ -157,3 +157,29 @@ span.tag {
 .hint {
   clear: both;
 }
+.code-tab {
+  display: inline-block;
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-right: 0.25em;
+  padding: 0.4em;
+  position: relative;
+  top: 1px;
+  color: #666;
+  font-size: 0.8em;
+  cursor: pointer;
+}
+.code-tab.active {
+  color: #333; 
+  background-color: #f6fff6;
+}
+.code-example {
+  margin-top: 0;
+  display: none;
+}
+.code-example.active {
+  display: block;
+}

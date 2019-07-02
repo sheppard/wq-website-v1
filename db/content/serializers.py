@@ -44,13 +44,83 @@ def update_links(html, version=None):
     return html
 
 
+def update_code(html):
+    if 'wq for Django' not in html:
+        return html
+
+    rows = html.split('\n')
+    rowid = {}
+
+    def section_done():
+        if 'pypi_start' not in rowid or 'npm_end' not in rowid:
+            return
+        if 'both_start' in rowid and 'both_end' not in rowid:
+            return
+        start = rowid['pypi_start']
+        pypi_head = rows[start]
+        pypi_code = rows[start + 1:rowid['pypi_end'] + 1]
+        npm_head = rows[rowid['npm_start']]
+        npm_code = rows[rowid['npm_start'] + 1:rowid['npm_end'] + 1]
+        if 'both_end' in rowid:
+            both_code = rows[rowid['both_start']:rowid['both_end']]
+            both_code[0] = both_code[0].split('>', 2)[2]
+            both_code.insert(0, '')
+            pypi_code_end = pypi_code[-1]
+            pypi_code = pypi_code[:-1] + both_code
+            if 'define(' in '\n'.join(pypi_code):
+                pypi_code.append('\n});')
+            pypi_code.append(pypi_code_end)
+            npm_code = npm_code[:-1] + both_code + npm_code[-1:]
+            end = rowid['both_end']
+        else:
+            end = rowid['npm_end']
+        for i in range(start, end + 1):
+            rows[i] = ''
+        rows[start] = pypi_head
+        rows[start + 1] = npm_head
+        rows[start + 2] = '\n'.join(pypi_code)
+        rows[start + 3] = '\n'.join(npm_code)
+        def set_class(row, class_name):
+            rows[start + row] = rows[start + row].replace('>', ' class="{}">'.format(class_name, 1))
+        set_class(0, 'code-tab active pypi')
+        set_class(1, 'code-tab npm')
+        set_class(2, 'code-example active pypi')
+        set_class(3, 'code-example npm')
+        rowid.clear()
+            
+    def update_row(row, i):
+        if 'wq for Django' in row:
+            rowid['pypi_start'] = i
+        elif 'wq for Node' in row:
+            rowid['npm_start'] = i
+        elif '<pre>' in row:
+            if 'npm_start' in rowid and i > rowid['npm_start'] + 1:
+                rowid['both_start'] = i
+        elif "</pre>" in row:
+            if 'both_start' in rowid:
+                rowid['both_end'] = i
+            elif 'npm_start' in rowid:
+                rowid['npm_end'] = i
+            elif 'pypi_start' in rowid:
+                rowid['pypi_end'] = i
+        elif row:
+            section_done()
+        
+    for i, row in enumerate(rows):
+        update_row(row, i)
+
+    return '\n'.join(rows)
+
+
 class PageSerializer(patterns.IdentifiedModelSerializer):
     version_date_label = serializers.SerializerMethodField("get_version_date")
     html = serializers.SerializerMethodField()
 
     def get_html(self, obj):
         html = markdown.markdown(obj.markdown, settings.MARKDOWN_EXTENSIONS)
-        return update_links(html)
+        html = update_links(html)
+        html = update_code(html)
+        return html
 
     def get_version_date(self, obj):
         if not getattr(obj, 'version_date', None):
@@ -70,7 +140,9 @@ class PageSerializer(patterns.IdentifiedModelSerializer):
 class MarkdownSerializer(patterns.MarkdownSerializer):
     html = serializers.SerializerMethodField()
     def get_html(self, instance):
-        return update_links(instance.html, instance.type)
+        html = update_links(instance.html, instance.type)
+        html = update_code(html)
+        return html
 
 
 class DocSerializer(patterns.IdentifiedMarkedModelSerializer, patterns.LocatedModelSerializer):
