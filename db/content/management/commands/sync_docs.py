@@ -16,14 +16,33 @@ import datetime
 class Command(NoArgsCommand):
     def handle_noargs(self, **options):
         os.chdir(settings.DOCS_ROOT)
+        subprocess.call(['git', 'fetch', '--tags'])
+        os.chdir('../wq')
+        for module in ('app', 'db', 'io'):
+            os.chdir(module)
+            subprocess.call(['git', 'fetch', '--tags'])
+            os.chdir('..')
+
+        os.chdir(settings.DOCS_ROOT)
         for i, version in enumerate(MarkdownType.objects.all()):
             subprocess.call(['git', 'checkout', version.doc_branch])
-            subprocess.call(['git', 'pull'])
-            self.update_docs(version, i == 0)
+            if not version.doc_branch.startswith('v'):
+                subprocess.call(['git', 'pull'])
+
+            os.chdir('../wq');
+            for module in ('app', 'db', 'io'):
+                os.chdir(module)
+                tag = getattr(version, module + '_branch')
+                subprocess.call(['git', 'checkout', tag])
+                if not version.doc_branch.startswith('v'):
+                    subprocess.call(['git', 'pull'])
+                os.chdir('..')
+
+            self.update_docs(version)
 
 
-    def update_docs(self, version, latest):
-        print("Version %s%s" % (version, " (latest)" if latest else ""))
+    def update_docs(self, version):
+        print("Version %s%s" % (version, " (current)" if version.current else ""))
         for i, c in enumerate(settings.CONF['docs']):
             chapter = Chapter(
                 id=c['id'],
@@ -42,7 +61,7 @@ class Command(NoArgsCommand):
                 markdown.summary = d.get('description', '')
                 markdown.save()
 
-                if not latest:
+                if not version.current:
                     continue
 
                 ident = doc.primary_identifier
