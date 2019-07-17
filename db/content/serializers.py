@@ -88,10 +88,20 @@ def update_code(html):
         set_class(3, 'code-example npm')
         rowid.clear()
             
+    def is_h(row):
+        return row.startswith((
+           '<h1>',
+           '<h2>',
+           '<h3>',
+           '<h4>',
+           '<h5>',
+           '<h6>',
+        ))
+
     def update_row(row, i):
-        if 'wq for Django' in row:
+        if 'wq for Django' in row and is_h(row):
             rowid['pypi_start'] = i
-        elif 'wq for Node' in row:
+        elif 'wq for Node' in row and is_h(row):
             rowid['npm_start'] = i
         elif '<pre>' in row:
             if 'npm_start' in rowid and i > rowid['npm_start'] + 1:
