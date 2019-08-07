@@ -89,7 +89,7 @@ function _postProcess(html) {
 }
 
 function _updateCode(html) {
-    if (!html.match('wq for Django')) {
+    if (!html.match('wq.app for PyPI')) {
         return html;
     }
     var rows = html.split('\n'),
@@ -146,9 +146,9 @@ function _updateCode(html) {
     }
             
     function updateRow(row, i) {
-        if (row.match('wq for Django')) {
+        if (row.match('wq.app for PyPI')) {
             rowid['pypi_start'] = i
-        } else if (row.match('wq for Node')){
+        } else if (row.match('@wq/app for npm')){
             rowid['npm_start'] = i
         } else if (row.match('<pre>')) {
             if ('npm_start' in rowid && i > rowid['npm_start'] + 1) {

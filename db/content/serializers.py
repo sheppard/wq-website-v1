@@ -45,7 +45,7 @@ def update_links(html, version=None):
 
 
 def update_code(html):
-    if 'wq for Django' not in html:
+    if 'wq.app for PyPI' not in html:
         return html
 
     rows = html.split('\n')
@@ -99,9 +99,9 @@ def update_code(html):
         ))
 
     def update_row(row, i):
-        if 'wq for Django' in row and is_h(row):
+        if 'wq.app for PyPI' in row and is_h(row):
             rowid['pypi_start'] = i
-        elif 'wq for Node' in row and is_h(row):
+        elif '@wq/app for npm' in row and is_h(row):
             rowid['npm_start'] = i
         elif '<pre>' in row:
             if 'npm_start' in rowid and i > rowid['npm_start'] + 1:
